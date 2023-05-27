@@ -6,8 +6,8 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName('panel')
     .setDescription('Creates a message where users can get roles, etc when they linked their Roblox account')
-    .addRoleOption(option => option.setName('role').setDescription('Role that will be given after linking').setRequired(false))
     .addBooleanOption(option => option.setName('change_nickname').setDescription('Whether user\'s nicknames will be set as their Roblox username').setRequired(true))
+    .addRoleOption(option => option.setName('role').setDescription('Role that will be given after linking').setRequired(false))
     .addChannelOption(option => option.setName('channel').setDescription('Where the message will be sent').setRequired(false)), 
     async execute(interaction) {
     let role = interaction.options.getRole('role');
