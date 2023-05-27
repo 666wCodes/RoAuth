@@ -87,4 +87,4 @@ async function registerSlashCommands() {
   }
 }
 
-client.login('MTEwNjg0Mjk5ODM0NTU2ODMwNg.GUY9Rl.x1sRIebe6o4cazanOixNwl3GdoPONwl4-ockcE');
+client.login(process.env.BOT_TOKEN);
