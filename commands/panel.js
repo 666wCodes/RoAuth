@@ -4,11 +4,11 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
   name: 'panel',
-  description: 'a panel where users can get a role or their nickname changed when they connected a roblox account.',
+  description: 'a panel where users can get a role or their nickname changed when they linked a roblox account.',
   options: [
     {
       name: 'change_nickname',
-      description: 'Changes user\'s nickname to their connected Roblox name',
+      description: 'Changes user\'s nickname to their linked Roblox name',
       type: 'BOOLEAN',
       required: true,
     },
@@ -20,7 +20,7 @@ module.exports = {
     },
     {
       name: 'role',
-      description: 'Role to add to Connected users',
+      description: 'Role to add to linked users',
       type: 'ROLE',
       required: false,
     },
@@ -31,16 +31,12 @@ module.exports = {
     let channel = interaction.options.getChannel('channel')
     if(!channel || channel === null) channel = interaction.channel
 
-    const button = new MessageButton()
-      .setCustomId('connect')
-      .setLabel('Connect Roblox Account')
-      .setStyle('PRIMARY');
 
-    const row = new MessageActionRow().addComponents(button);
+    const row = new MessageActionRow().addComponents(new MessageButton().setCustomId('link').setLabel('Link Roblox Account').setStyle('PRIMARY'))
     
     let embed = new MessageEmbed()
-    .setTitle("Connect your Roblox Account")
-    .setDescription("This server requires you to connect your Roblox Account to gain access to additional features.\nClick the button below to start")
+    .setTitle("link your Roblox Account")
+    .setDescription("This server requires you to link your Roblox Account to gain access to additional features.\nClick the button below to start")
     .setColor("ORANGE")
     .setFooter(`${interaction.guild.name} | RoAuth`)
     client.channels.fetch(channel.id).send({ embeds: [embed], components: [row] })
