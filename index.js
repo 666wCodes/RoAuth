@@ -21,7 +21,7 @@ const { Client, Intents, Collection } = require('discord.js');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const fs = require('fs');
-const client = new Client({ intents: [Intents.FLAGS.Guilds, Intents.FLAGS.GuildMessages] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 // Create a collection to store the slash commands
 client.commands = new Collection();
@@ -36,8 +36,8 @@ for (const file of commandFiles) {
 }
 
 // Bot token and client ID
-const token = process.env.BOT_TOKEN;
-const clientId = 1106842998345568306;
+const token = process.env.BOT_TOKEN
+const clientId = 1106842998345568306
 
 // Create a REST client for registering slash commands
 const rest = new REST({ version: '9' }).setToken(token);
@@ -51,22 +51,22 @@ const rest = new REST({ version: '9' }).setToken(token);
       Routes.applicationGuildCommands(clientId, 'GLOBAL')
     );
 
-    // Get the IDs of the existing slash commands
+    
     const existingCommandIds = commands.map(command => command.id);
 
-    // Filter out the commands that should be deleted
+    
     const commandsToDelete = commands.filter(command =>
       !client.commands.has(command.name)
     );
 
-    // Delete the unnecessary commands
+    
     for (const command of commandsToDelete) {
       await rest.delete(
         Routes.applicationGuildCommand(clientId, 'GLOBAL', command.id)
       );
     }
 
-    // Register or update the slash commands
+    
     const newCommands = client.commands.map(command => command.data.toJSON());
     const commandsToRegister = newCommands.filter(command =>
       !existingCommandIds.includes(command.id)
