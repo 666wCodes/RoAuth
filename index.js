@@ -23,6 +23,20 @@ const { Routes } = require('discord-api-types/v9');
 const fs = require('fs');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
+client.on('interactionCreate', async (interaction) => {
+  if (!interaction.isCommand()) return;
+
+  const command = client.commands.get(interaction.commandName);
+  if (!command) return;
+
+  try {
+    await command.execute(interaction);
+  } catch (error) {
+    console.error(error);
+    await interaction.reply({ content: 'An error occurred while executing the command.', ephemeral: true });
+  }
+});
+
 // Create a collection to store the slash commands
 client.commands = new Collection();
 
