@@ -48,7 +48,7 @@ const rest = new REST({ version: '9' }).setToken(token);
 
     // Fetch all the registered slash commands globally
     const commands = await rest.get(
-      Routes.applicationGuildCommands(clientId, 'GLOBAL')
+      Routes.applicationGuildCommands(clientId)
     );
 
     
@@ -62,7 +62,7 @@ const rest = new REST({ version: '9' }).setToken(token);
     
     for (const command of commandsToDelete) {
       await rest.delete(
-        Routes.applicationGuildCommand(clientId, 'GLOBAL', command.id)
+        Routes.applicationGuildCommand(clientId, command.id)
       );
     }
 
@@ -73,7 +73,7 @@ const rest = new REST({ version: '9' }).setToken(token);
     );
 
     await rest.put(
-      Routes.applicationGuildCommands(clientId, 'GLOBAL'),
+      Routes.applicationGuildCommands(clientId),
       { body: commandsToRegister }
     );
 
