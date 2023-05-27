@@ -23,7 +23,7 @@ module.exports = {
     .setDescription("This server requires you to link your Roblox Account to gain access to additional features.\nClick the button below to start")
     .setColor("ORANGE")
     .setFooter(`${interaction.guild.name} | RoAuth`)
-    client.channels.cache.get(channel.id).send({ embeds: [embed], components: [row] })
+    client.cache.channels.get(channel.id).send({ embeds: [embed], components: [row] })
 
     
   }
