@@ -1,4 +1,4 @@
-const gamelink = "https://roblox.com/game/test"
+const gamelink = "https://roblox.com/game/testworks"
 const db = require('quick.db');
 
 //WHERE EXPRESS STARTS
