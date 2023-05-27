@@ -51,7 +51,7 @@ const clientId = '1106842998345568306'
     commands.push(command.data.toJSON());
   }
 
-  const rest = new REST({ version: '9' }).setToken(process.env.token);
+  const rest = new REST({ version: '9' }).setToken(process.env.BOT_TOKEN);
 
   (async () => {
     try {
