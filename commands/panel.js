@@ -1,5 +1,5 @@
 const db = require('quick.db');
-const { discord, MessageActionRow, MessageButton, Modal, TextInputComponent, client } = require('discord.js')
+const { discord, MessageActionRow, MessageButton, Modal, TextInputComponent, client, MessageEmbed } = require('discord.js')
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
@@ -38,7 +38,7 @@ module.exports = {
 
     const row = new MessageActionRow().addComponents(button);
     
-    let embed = new discord.MessageEmbed()
+    let embed = new MessageEmbed()
     .setTitle("Connect your Roblox Account")
     .setDescription("This server requires you to connect your Roblox Account to gain access to additional features.\nClick the button below to start")
     .setColor("ORANGE")
