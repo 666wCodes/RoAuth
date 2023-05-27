@@ -37,7 +37,7 @@ for (const file of commandFiles) {
 
 // Bot token and client ID
 const token = process.env.BOT_TOKEN
-const clientId = 1106842998345568306
+const clientId = '1106842998345568306'
 
 // Create a REST client for registering slash commands
 const rest = new REST({ version: '9' }).setToken(token);
@@ -48,7 +48,7 @@ const rest = new REST({ version: '9' }).setToken(token);
 
     // Fetch all the registered slash commands globally
     const commands = await rest.get(
-      Routes.applicationGuildCommands(clientId)
+      Routes.applicationGuildCommands(clientId, 'GLOBAL')
     );
 
     
@@ -62,7 +62,7 @@ const rest = new REST({ version: '9' }).setToken(token);
     
     for (const command of commandsToDelete) {
       await rest.delete(
-        Routes.applicationGuildCommand(clientId, command.id)
+        Routes.applicationGuildCommand(clientId, 'GLOBAL', command.id)
       );
     }
 
@@ -73,7 +73,7 @@ const rest = new REST({ version: '9' }).setToken(token);
     );
 
     await rest.put(
-      Routes.applicationGuildCommands(clientId),
+      Routes.applicationGuildCommands(clientId, 'GLOBAL'),
       { body: commandsToRegister }
     );
 
