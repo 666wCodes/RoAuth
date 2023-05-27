@@ -40,8 +40,7 @@ const token = process.env.BOT_TOKEN
 const clientId = '1106842998345568306'
 
 // Create a REST client for registering slash commands
-const { REST } = require('@discordjs/rest');
-  const { Routes } = require('discord-api-types/v9');
+
 
   const commands = [];
 
