@@ -1,5 +1,5 @@
 const db = require('quick.db');
-const { discord, MessageActionRow, Modal, TextInputComponent, client } = require('discord.js')
+const { discord, MessageActionRow, MessageButton, MessageActionRow, Modal, TextInputComponent, client } = require('discord.js')
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
@@ -31,12 +31,12 @@ module.exports = {
     let channel = interaction.options.getChannel('channel')
     if(!channel || channel === null) channel = interaction.channel
 
-    const button = new discord.MessageButton()
+    const button = new MessageButton()
       .setCustomId('connect')
       .setLabel('Connect Roblox Account')
       .setStyle('PRIMARY');
 
-    const row = new discord.MessageActionRow().addComponents(button);
+    const row = new MessageActionRow().addComponents(button);
     
     let embed = new discord.MessageEmbed()
     .setTitle("Connect your Roblox Account")
