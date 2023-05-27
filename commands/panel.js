@@ -1,5 +1,5 @@
 const db = require('quick.db');
-const { discord, MessageActionRow, MessageButton, MessageActionRow, Modal, TextInputComponent, client } = require('discord.js')
+const { discord, MessageActionRow, MessageButton, Modal, TextInputComponent, client } = require('discord.js')
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
