@@ -4,7 +4,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
   name: 'panel',
-  description: 'Create a panel where users can get a role or nickname change when they connected their roblox account.',
+  description: 'a panel where users can get a role or their nickname changed when they connected a roblox account.',
   options: [
     {
       name: 'channel',
