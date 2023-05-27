@@ -47,7 +47,7 @@ const clientId = '1106842998345568306'
   // Place your client and guild ids here
 
   for (const file of commandFiles) {
-    const command = require(`./slashcommands/slashcommand/${file}`);
+    const command = require(`./commands/${file}`);
     commands.push(command.data.toJSON());
   }
 
