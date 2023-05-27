@@ -40,47 +40,34 @@ const token = process.env.BOT_TOKEN
 const clientId = '1106842998345568306'
 
 // Create a REST client for registering slash commands
-const rest = new REST({ version: '9' }).setToken(token);
+const { REST } = require('@discordjs/rest');
+  const { Routes } = require('discord-api-types/v9');
 
-(async () => {
-  try {
-    console.log('Started refreshing application (/) commands.');
+  const commands = [];
 
-    // Fetch all the registered slash commands globally
-    const commands = await rest.get(
-      Routes.applicationGuildCommands(clientId)
-    );
+  // Place your client and guild ids here
 
-    
-    const existingCommandIds = commands.map(command => command.id);
+  for (const file of commandFiles) {
+    const command = require(`./slashcommands/slashcommand/${file}`);
+    commands.push(command.data.toJSON());
+  }
 
-    
-    const commandsToDelete = commands.filter(command =>
-      !client.commands.has(command.name)
-    );
+  const rest = new REST({ version: '9' }).setToken(process.env.token);
 
-    
-    for (const command of commandsToDelete) {
-      await rest.delete(
-        Routes.applicationGuildCommand(clientId, command.id)
+  (async () => {
+    try {
+      console.log('Started refreshing application (/) commands.');
+
+      await rest.put(
+        Routes.applicationCommands(clientId),
+        { body: commands },
       );
+
+      console.log('Successfully reloaded application (/) commands.');
+    } catch (error) {
+      console.error(error);
     }
 
-    
-    const newCommands = client.commands.map(command => command.data.toJSON());
-    const commandsToRegister = newCommands.filter(command =>
-      !existingCommandIds.includes(command.id)
-    );
-
-    await rest.put(
-      Routes.applicationGuildCommands(clientId),
-      { body: commandsToRegister }
-    );
-
-    console.log('Successfully reloaded application (/) commands.');
-  } catch (error) {
-    console.error(error);
-  }
-})();
+  })();
 
 client.login(process.env.BOT_TOKEN);
