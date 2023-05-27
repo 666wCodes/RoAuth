@@ -7,6 +7,12 @@ module.exports = {
   description: 'a panel where users can get a role or their nickname changed when they connected a roblox account.',
   options: [
     {
+      name: 'change_nickname',
+      description: 'Changes user\'s nickname to their connected Roblox name',
+      type: 'BOOLEAN',
+      required: true,
+    },
+    {
       name: 'channel',
       description: 'Channel to send panel message (Will send to channel where you used this command by default)',
       type: 'ROLE',
@@ -17,12 +23,6 @@ module.exports = {
       description: 'Role to add to Connected users',
       type: 'ROLE',
       required: false,
-    },
-    {
-      name: 'change_nickname',
-      description: 'Changes user\'s nickname to their connected Roblox name',
-      type: 'BOOLEAN',
-      required: true,
     },
   ],
   async execute(interaction) {
