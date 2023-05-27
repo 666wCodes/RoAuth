@@ -3,29 +3,13 @@ const { discord, MessageActionRow, MessageButton, Modal, TextInputComponent, cli
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
-  name: 'panel',
-  description: 'a panel where users can get a role or their nickname changed when they linked a roblox account.',
-  options: [
-    {
-      name: 'change_nickname',
-      description: 'Changes user\'s nickname to their linked Roblox name',
-      type: 'BOOLEAN',
-      required: true,
-    },
-    {
-      name: 'channel',
-      description: 'Channel to send panel message (Will send to channel where you used this command by default)',
-      type: 'ROLE',
-      required: false,
-    },
-    {
-      name: 'role',
-      description: 'Role to add to linked users',
-      type: 'ROLE',
-      required: false,
-    },
-  ],
-  async execute(interaction) {
+  data: new SlashCommandBuilder()
+    .setName('panel')
+    .setDescription('Creates a message where users can get roles, etc when they linked their Roblox account')
+    .addRoleOption(option => option.setName('role').setDescription('Role that will be given after linking').setRequired(false))
+    .addBooleanOption(option => option.setName('change_nickname').setDescription('Whether user\'s nicknames will be set as their Roblox username').setRequired(true))
+    .addChannelOption(option => option.setName('channel').setDescription('Where the message will be sent').setRequired(false)), 
+    async execute(interaction) {
     let role = interaction.options.getRole('role');
     let changeNick = interaction.options.getBoolean('change_nickname');
     let channel = interaction.options.getChannel('channel')
