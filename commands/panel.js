@@ -27,8 +27,11 @@ module.exports = {
     .setDescription("This server requires you to link your Roblox Account to gain access to additional features.\nClick the button below to start")
     .setColor("ORANGE")
     .setFooter(`${interaction.guild.name} | RoAuth`)
-    const sendc = await client.channels.cache.get(channel.id); console.log(channel.id)
-    let msg = await sendc.send({ embeds: [embed], components: [row] })
+    const sendc = client.channels.cache.get(channel.id); console.log(channel.id)
+    if(sendc){
+      let msg = await sendc.send({ embeds: [embed], components: [row] })
+    }
+    
 
     await interaction.reply({ content: `${success} | Created Panel at <#${channel.id}> with id: ${msg.id}`})
 
