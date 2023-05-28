@@ -15,8 +15,8 @@ module.exports = {
       
       
       let panels = db.get(`panel-${interaction.guild.id}`)
-      let URLchannel = panels.split("-")[1]
-      let URLmessage = panels.split("-")[0]
+      let URLchannel = string(panels).split("-")[1]
+      let URLmessage = string(panels).split("-")[0]
       let URL = `https://discord.com/channels/${interaction.guild.id}/${URLchannel}/${URLmessage}`
       
       const link = new MessageActionRow().addComponents(new MessageButton().setUrl(URL).setLabel('Go to Panel').setStyle('LINK'))
