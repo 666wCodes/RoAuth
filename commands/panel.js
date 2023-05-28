@@ -1,8 +1,10 @@
 const db = require('quick.db');
 const { discord, MessageActionRow, MessageButton, Modal, TextInputComponent, client, MessageEmbed } = require('discord.js')
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const emoji = require('../symbols.json')
 const fs = require('fs');
+const json = fs.readFileSync('../symbols.json', 'utf8');
+const emoji = JSON.parse(json);
+
 
 module.exports = {
   data: new SlashCommandBuilder()
