@@ -36,7 +36,7 @@ client.on('interactionCreate', async (interaction) => {
     let i = interaction
     if(i.customId === "link"){
       let times = Date.now() / 1000
-      times = Math.round(times + 600)
+      times = Math.floor(times + 600)
       const link = new MessageActionRow().addComponents(new MessageButton().setURL("https://roblox.com/").setLabel('Join Roblox Game').setStyle('LINK')).addComponents(new MessageButton().setURL("https://discord.com/").setLabel('Support Server').setStyle('LINK'))
       let embed1 = new MessageEmbed()
       .setTitle("How to link your Roblox Account")
