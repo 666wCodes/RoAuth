@@ -27,7 +27,8 @@ module.exports = {
     .setDescription("This server requires you to link your Roblox Account to gain access to additional features.\nClick the button below to start")
     .setColor("ORANGE")
     .setFooter(`${interaction.guild.name} | RoAuth`)
-    const sendc = client.channels.cache.get(channel.id); console.log(channel.id)
+    console.log(channel.id)
+    const sendc = client.channels.fetch(channel.id); //console.log(channel.id)
     if(sendc){
       let msg = await sendc.send({ embeds: [embed], components: [row] })
     }
