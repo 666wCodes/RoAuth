@@ -2,22 +2,6 @@ const gamelink = "https://roblox.com/game/testworks"
 const db = require('quick.db');
 const { error, warn, success, info, bullet } = require('./symbols.json')
 
-function restartServer() {
-  // Get the current Node.js process ID
-  const currentPID = process.pid;
-
-  // Spawn a new Node.js process using the same script file
-  const child = spawn(process.argv[0], [path.join(__dirname, 'server.js')], {
-    detached: true,
-    stdio: 'inherit'
-  });
-
-  // Detach the child process
-  child.unref();
-
-  // Terminate the current Node.js process
-  process.kill(currentPID);
-}
 
 //WHERE EXPRESS STARTS
 
@@ -32,7 +16,7 @@ res.send("hello")
 app.post("/github", (req, res) => {
   res.send("Done")
   res.status(200);
-  restartServer();
+  process.exit();
 })
 
 app.listen(PORT, () => {
