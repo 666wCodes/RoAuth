@@ -14,7 +14,7 @@ res.send("hello")
 });
 
 app.post("/github", (req, res) => {
-  res.send("Done")
+  res.send("Done test")
   res.status(200);
   process.exit();
 })
