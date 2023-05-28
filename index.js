@@ -47,7 +47,7 @@ client.on('interactionCreate', async (interaction) => {
 
 client.on('ready', async () => {
   console.clear()
-  clonsole.log(`${success} | ${client.user.tag} is online!`)
+  console.log(`${success} | ${client.user.tag} is online!`)
 })
 
 // Create a collection to store the slash commands
