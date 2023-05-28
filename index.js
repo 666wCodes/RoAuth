@@ -14,7 +14,7 @@ res.send("hello")
 });
 
 app.post("/github", (req, res) => {
-  res.send("Done test")
+  res.send("Done")
   res.status(200);
   process.exit();
 })
@@ -44,6 +44,11 @@ client.on('interactionCreate', async (interaction) => {
     await interaction.reply({ content: `${error} | An error occurred while executing the command. Please report this to our support server`, ephemeral: true });
   }
 });
+
+client.on('ready', async () => {
+  console.clear()
+  clonsole.log(`${success} | ${client.user.tag} is online!`)
+})
 
 // Create a collection to store the slash commands
 client.commands = new Collection();
