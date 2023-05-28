@@ -1,6 +1,7 @@
 const db = require('quick.db');
 const { discord, MessageActionRow, MessageButton, Modal, TextInputComponent, client, MessageEmbed } = require('discord.js')
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const {error, warn, success, info, bullet} = require('./symbols.json')
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -15,15 +16,18 @@ module.exports = {
     let channel = interaction.options.getChannel('channel')
     if(!channel || channel === null) channel = interaction.channel
 
+    if(channel.isText === false) return interaction.reply({ content: ":x: | The mentioned channel must be a text channel!"})
 
-    const row = new MessageActionRow().addComponents(new MessageButton().setCustomId('link').setLabel('Link Roblox Account').setStyle('PRIMARY'))
+
+    const row = new MessageActionRow().addComponents(new MessageButton().setCustomId('link').setLabel('Link Roblox Account').setStyle('SECONDARY'))
     
     let embed = new MessageEmbed()
-    .setTitle("link your Roblox Account")
+    .setTitle("Link your Roblox Account")
     .setDescription("This server requires you to link your Roblox Account to gain access to additional features.\nClick the button below to start")
     .setColor("ORANGE")
     .setFooter(`${interaction.guild.name} | RoAuth`)
-    client.cache.channels.get(channel.id).send({ embeds: [embed], components: [row] })
+    const sendc = await client.channels.cache.get(channel.id); console.log(channel.id)
+    await sendc.send({ embeds: [embed], components: [row] })
 
     
   }
