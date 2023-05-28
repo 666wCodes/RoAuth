@@ -1,5 +1,6 @@
 const gamelink = "https://roblox.com/game/testworks"
 const db = require('quick.db');
+const { error, warn, success, info, bullet } = require('../symbols.json')
 
 //WHERE EXPRESS STARTS
 
@@ -33,7 +34,7 @@ client.on('interactionCreate', async (interaction) => {
     await command.execute(interaction);
   } catch (error) {
     console.error(error);
-    await interaction.reply({ content: 'An error occurred while executing the command. Please report this to our support server', ephemeral: true });
+    await interaction.reply({ content: `${error} | An error occurred while executing the command. Please report this to our support server`, ephemeral: true });
   }
 });
 
@@ -69,14 +70,14 @@ const clientId = '1106842998345568306'
 
   (async () => {
     try {
-      console.log('Started refreshing application (/) commands.');
+      console.log(`${info} | Started refreshing application (/) commands.`);
 
       await rest.put(
         Routes.applicationCommands(clientId),
         { body: commands },
       );
 
-      console.log('Successfully reloaded application (/) commands.');
+      console.log(`${success} | Successfully reloaded application (/) commands.`);
     } catch (error) {
       console.error(error);
     }
