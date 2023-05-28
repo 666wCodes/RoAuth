@@ -17,7 +17,7 @@ module.exports = {
     let channel = interaction.options.getChannel('channel')
     if(!channel || channel === null) channel = interaction.channel
 
-    if(!channel.isText()) return interaction.reply({ content: `${error} | The mentioned channel must be a text channel!`, ephemeral: true})
+    if(!channel.isText() || channel.isVoice()) return interaction.reply({ content: `${error} | The mentioned channel must be a text channel!`, ephemeral: true})
 
 
     const row = new MessageActionRow().addComponents(new MessageButton().setCustomId('link').setLabel('Link Roblox Account').setStyle('SECONDARY'))
