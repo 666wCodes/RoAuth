@@ -1,6 +1,6 @@
 const gamelink = "https://roblox.com/game/testworks"
 const db = require('quick.db');
-const { error, warn, success, info, bullet } = require('./symbols.json')
+const { error, warn, success, info, bullet, restricted } = require('./symbols.json')
 
 
 //WHERE EXPRESS STARTS

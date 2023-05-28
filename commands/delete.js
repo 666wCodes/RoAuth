@@ -6,7 +6,7 @@ const fs = require('fs');
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('create')
+    .setName('delete')
     .setDescription('Deletes the panel in this server if set'),
     async execute(interaction, client) {
         if(!interaction.guild) return interaction.reply({ content: `${warn} | This command can only be run in guilds`, ephemeral: true})
@@ -20,8 +20,9 @@ module.exports = {
         .then(() => {
         interaction.reply({ content: `${success} | Panel was deleted from the Database and from Discord`, ephemeral: true})
         })
-        .catch((error) => {
+        .catch((err) => {
         interaction.reply({ content: `${warn} | This is wierd: The panel was deleted from our Database but I was not able to delete the Panel message...`, ephemeral: true})
-        });
+        console.log(err)
+    });
     }
 }
