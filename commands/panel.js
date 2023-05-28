@@ -1,7 +1,8 @@
 const db = require('quick.db');
 const { discord, MessageActionRow, MessageButton, Modal, TextInputComponent, client, MessageEmbed } = require('discord.js')
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const {error, warn, success, info, bullet} = require('./symbols.json')
+const { error, warn, success, info, bullet } = require('../symbols.json')
+const fs = require('fs');
 
 module.exports = {
   data: new SlashCommandBuilder()
