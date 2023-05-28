@@ -32,6 +32,12 @@ app.post("/github", (req, res) => {
   process.exit();
 })
 
+app.get(`/robloxapi?code=${process.env.AUTH_CODE}`, (req, res) => {
+  res.send("Done")
+  res.status(200);
+  //process.exit();
+})
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });
