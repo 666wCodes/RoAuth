@@ -1,3 +1,16 @@
+function createCode(length) {
+  let result = '';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  const charactersLength = characters.length;
+  let counter = 0;
+  while (counter < length) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    counter += 1;
+  }
+  return result;
+}
+
+
 const gamelink = "https://roblox.com/game/testworks"
 const db = require('quick.db');
 const { error, warn, success, info, bullet, restricted } = require('./symbols.json')
@@ -34,14 +47,34 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 client.on('interactionCreate', async (interaction) => {
   if (interaction.isButton()){
     let i = interaction
+    
     if(i.customId === "link"){
+      
+      let session = db.get(`session-${i.guild.id}-${i.user.id}`)
+      let sessioncode = db.get(`sessioncode-${i.guild.id}-${i.user.id}`)
+      let created = String(session).split("-")[0]
+      let expires = String(session).split("-")[1]
+
+      if(Date.now() >= expires){
+        db.delete(`session-${i.guild.id}-${i.user.id}`)
+        db.delete(`sessioncode-${i.guild.id}-${i.user.id}`)
+      }
+
+      if(session !== null && sessioncode !== null){
+        return interaction.reply({ content: `${warn} ${bullet} You already have an on-going session, authentication code: \`${sessioncode}\``})
+      }
+
+      // Session
+      let vcode = createCode(6)
       let times = Math.floor(Date.now() / 1000)
       times = times + 600
+      db.set(`session-${i.guild.id}-${i.user.id}`, `${Date.now()}-${times}`)
+      db.set(`sessioncode-${i.guild.id}-${i.user.id}`, vcode)
       const link = new MessageActionRow().addComponents(new MessageButton().setURL("https://roblox.com/").setLabel('Join Roblox Game').setStyle('LINK')).addComponents(new MessageButton().setURL("https://discord.com/").setLabel('Support Server').setStyle('LINK'))
       let embed1 = new MessageEmbed()
       .setTitle("How to link your Roblox Account")
       .setColor("ORANGE")
-      .addFields({ name: "Your authentication code", value: `\`000000\` (Expires <t:${times}:R>)`})
+      .addFields({ name: "Your authentication code", value: `\`${vcode}\` (Expires <t:${times}:R>)`})
       .setDescription(`
       Here are the steps to link your Roblox Account
 
