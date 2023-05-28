@@ -17,7 +17,7 @@ module.exports = {
     let channel = interaction.options.getChannel('channel')
     if(!channel || channel === null) channel = interaction.channel
 
-    if(!channel.isText()) return interaction.reply({ content: `${error} | The mentioned channel must be a text channel!`})
+    if(!channel.isText()) return interaction.reply({ content: `${error} | The mentioned channel must be a text channel!`, ephemeral: true})
 
 
     const row = new MessageActionRow().addComponents(new MessageButton().setCustomId('link').setLabel('Link Roblox Account').setStyle('SECONDARY'))
@@ -28,7 +28,9 @@ module.exports = {
     .setColor("ORANGE")
     .setFooter(`${interaction.guild.name} | RoAuth`)
     const sendc = await client.channels.cache.get(channel.id); console.log(channel.id)
-    await sendc.send({ embeds: [embed], components: [row] })
+    let msg = await sendc.send({ embeds: [embed], components: [row] })
+
+    await interaction.reply({ content: `${success} | Created Panel at <#${channel.id}> with id: ${msg.id}`})
 
     
   }
