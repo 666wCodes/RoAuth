@@ -37,7 +37,7 @@ client.on('interactionCreate', async (interaction) => {
     if(i.customId === "link"){
       let times = Date.now() / 1000
       times = Math.round(times + 600)
-      const link = new MessageActionRow().addComponents(new MessageButton().setURL("https://roblox.com/").setLabel('Join Roblox Game').setStyle('LINK'))
+      const link = new MessageActionRow().addComponents(new MessageButton().setURL("https://roblox.com/").setLabel('Join Roblox Game').setStyle('LINK')).addComponents(new MessageButton().setURL("https://discord.com/").setLabel('Support Server').setStyle('LINK'))
       let embed1 = new MessageEmbed()
       .setTitle("How to link your Roblox Account")
       .setColor("ORANGE")
@@ -45,12 +45,12 @@ client.on('interactionCreate', async (interaction) => {
       .setDescription(`
       Here are the steps to link your Roblox Account
 
-      1. Join the Roblox game using the button below
-        2. Once in the game, enter in your authentication code
-          3. Verify that everything is entered correctly and submit
-            4. Your Roblox account is now linked
+      1 ${bullet} Join the Roblox game using the button below
+      2 ${bullet} Once in the game, enter in your authentication code
+      3 ${bullet} Verify that everything is entered correctly and submit
+      4 ${bullet} Your Roblox account is now linked
       
-      If you need help or have a problem, join our (Support Server)[https://google.com]`)
+      If you need help or have a problem, join our Support Server.`)
       .setTimestamp();
 		  await i.reply({ embeds: [embed1], components: [link], ephemeral: true });
     }
