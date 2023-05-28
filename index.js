@@ -36,7 +36,7 @@ client.on('interactionCreate', async (interaction) => {
     let i = interaction
     if(i.customId === "link"){
       let times = Date.now() / 1000
-      times = times + 600
+      times = Math.round(times + 600)
       const link = new MessageActionRow().addComponents(new MessageButton().setURL("https://roblox.com/").setLabel('Join Roblox Game').setStyle('LINK'))
       let embed1 = new MessageEmbed()
       .setTitle("How to link your Roblox Account")
@@ -46,14 +46,14 @@ client.on('interactionCreate', async (interaction) => {
       Here are the steps to link your Roblox Account
 
       1. Join the Roblox game using the button below
-      2. Once in the game, enter in your authentication code
-      3. Verify that everything is entered correctly and submit
-      4. Your Roblox account is now linked
+        2. Once in the game, enter in your authentication code
+          3. Verify that everything is entered correctly and submit
+            4. Your Roblox account is now linked
       
-      If you need help or have a problem, join our [Support Server](https://google.com)`)
+      If you need help or have a problem, join our (Support Server)[https://google.com]`)
       .setTimestamp();
       await i.deferUpdate();
-		  await i.editReply({ embeds: [embed1], components: [link] });
+		  await i.editReply({ embeds: [embed1], components: [link], ephemeral: true });
     }
   }
   if (!interaction.isCommand()) return;
