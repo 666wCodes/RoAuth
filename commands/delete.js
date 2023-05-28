@@ -11,8 +11,8 @@ module.exports = {
     async execute(interaction, client) {
         if(!interaction.guild) return interaction.reply({ content: `${warn} | This command can only be run in guilds`, ephemeral: true})
         if(!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.reply({ content: `${restricted} | You do not have permission to run this command`, ephemeral: true})
-        if(panels === null) return interaction.reply({ content: `${error} | Please create a panel first with \`/create\`, if you wanna delete a panel...`, ephemeral: true})
         let panels = db.get(`panel-${interaction.guild.id}`)
+        if(panels === null) return interaction.reply({ content: `${error} | Please create a panel first with \`/create\`, if you wanna delete a panel...`, ephemeral: true})
         let channelid = panels.split("-")[1]
         let messageid = panels.split("-")[0]
         await db.delete(`panel-${interaction.guild.id}`)
