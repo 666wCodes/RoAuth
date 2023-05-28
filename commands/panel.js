@@ -24,7 +24,7 @@ module.exports = {
     
     let embed = new MessageEmbed()
     .setTitle("Link your Roblox Account")
-    .setDescription("This server requires you to link your Roblox Account to gain access to additional features.\nClick the button below to start")
+    .setDescription("This server requires you to link your Roblox Account to gain access to additional features. Click the button below to start")
     .setColor("ORANGE")
     .setFooter(`${interaction.guild.name} | RoAuth`)
     console.log(channel.id)
