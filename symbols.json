@@ -3,5 +3,6 @@
     "warn": "⚠️",
     "success": "✅",
     "info": "ℹ️",
-    "bullet": "•"
+    "bullet": "•",
+    "restricted": "⛔"
 }
