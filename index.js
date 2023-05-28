@@ -52,8 +52,7 @@ client.on('interactionCreate', async (interaction) => {
       
       If you need help or have a problem, join our (Support Server)[https://google.com]`)
       .setTimestamp();
-      await i.deferUpdate();
-		  await i.editReply({ embeds: [embed1], components: [link], ephemeral: true });
+		  await i.reply({ embeds: [embed1], components: [link], ephemeral: true });
     }
   }
   if (!interaction.isCommand()) return;
