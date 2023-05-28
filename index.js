@@ -61,14 +61,17 @@ client.on('interactionCreate', async (interaction) => {
       }
 
       if(session !== null && sessioncode !== null){
-        return interaction.reply({ content: `${warn} ${bullet} You already have an on-going session, authentication code: \`${sessioncode}\``})
+        return interaction.reply({ content: `${warn} ${bullet} You already have an on-going session, authentication code: \`${sessioncode}\``, ephemeral: true })
       }
 
       // Session
       let vcode = createCode(6)
       let times = Math.floor(Date.now() / 1000)
       times = times + 600
-      db.set(`session-${i.guild.id}-${i.user.id}`, `${Date.now()}-${times}`)
+
+      let timestampExpire = Math.floor(Date.now() + 600000)
+
+      db.set(`session-${i.guild.id}-${i.user.id}`, `${Date.now()}-${timestampExpire}`)
       db.set(`sessioncode-${i.guild.id}-${i.user.id}`, vcode)
       const link = new MessageActionRow().addComponents(new MessageButton().setURL("https://roblox.com/").setLabel('Join Roblox Game').setStyle('LINK')).addComponents(new MessageButton().setURL("https://discord.com/").setLabel('Support Server').setStyle('LINK'))
       let embed1 = new MessageEmbed()
