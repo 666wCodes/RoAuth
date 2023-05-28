@@ -25,13 +25,37 @@ app.listen(PORT, () => {
 
 //WHERE EXPRESS END
 
-const { Client, Intents, Collection } = require('discord.js');
+const { Client, Intents, Collection, MessageEmbed } = require('discord.js');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const fs = require('fs');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 client.on('interactionCreate', async (interaction) => {
+  if (interaction.isButton()){
+    let i = interaction
+    if(i.customId === "link"){
+      let times = Date.now() / 1000
+      times = times + 600
+      const link = new MessageActionRow().addComponents(new MessageButton().setURL("https://roblox.com/").setLabel('Join Roblox Game').setStyle('LINK'))
+      let embed1 = new MessageEmbed()
+      .setTitle("How to link your Roblox Account")
+      .setColor("ORANGE")
+      .addFields({ name: "Your authentication code", value: `\`000000\` (Expires <t:${times}:R>)`})
+      .setDescription(`
+      Here are the steps to link your Roblox Account
+
+      1. Join the Roblox game using the button below
+      2. Once in the game, enter in your authentication code
+      3. Verify that everything is entered correctly and submit
+      4. Your Roblox account is now linked
+      
+      If you need help or have a problem, join our [Support Server](https://google.com)`)
+      .setTimestamp();
+      await i.deferUpdate();
+		  await i.editReply({ embeds: [embed1], components: [link] });
+    }
+  }
   if (!interaction.isCommand()) return;
 
   const command = client.commands.get(interaction.commandName);
@@ -47,7 +71,7 @@ client.on('interactionCreate', async (interaction) => {
 
 client.on('ready', async () => {
   console.clear()
-  console.log(`${success} | ${client.user.tag} is online!`)
+  console.log(`${success} ${bullet} ${client.user.tag} is online!`)
 })
 
 // Create a collection to store the slash commands
@@ -82,14 +106,14 @@ const clientId = '1106842998345568306'
 
   (async () => {
     try {
-      console.log(`${info} | Started refreshing application (/) commands.`);
+      console.log(`${info} ${bullet} Started refreshing application (/) commands.`);
 
       await rest.put(
         Routes.applicationCommands(clientId),
         { body: commands },
       );
 
-      console.log(`${success} | Successfully reloaded application (/) commands.`);
+      console.log(`${success} ${bullet} Successfully reloaded application (/) commands.`);
     } catch (error) {
       console.error(error);
     }
