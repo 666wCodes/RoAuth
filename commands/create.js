@@ -12,15 +12,15 @@ module.exports = {
     .addRoleOption(option => option.setName('role').setDescription('Role that will be given after linking').setRequired(false))
     .addChannelOption(option => option.setName('channel').setDescription('Where the message will be sent').setRequired(false)), 
     async execute(interaction, client) {
-      if(!interaction.guild) return interaction.reply({ content: `${warn} | This command can only be run in guilds`, ephemeral: true})
-      if(!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.reply({ content: `${restricted} | You do not have permission to run this command`, ephemeral: true})
+      if(!interaction.guild) return interaction.reply({ content: `${warn} ${bullet} This command can only be run in guilds`, ephemeral: true})
+      if(!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.reply({ content: `${restricted} ${bullet} You do not have permission to run this command`, ephemeral: true})
       let panels = db.get(`panel-${interaction.guild.id}`)
       if(panels !== null){
       let URLchannel = panels.split("-")[1]
       let URLmessage = panels.split("-")[0]
       let URL = `https://discord.com/channels/${interaction.guild.id}/${URLchannel}/${URLmessage}`
       const link = new MessageActionRow().addComponents(new MessageButton().setURL(URL).setLabel('Go to Panel').setStyle('LINK'))
-      return interaction.reply({ content: `${info} | There is already a panel setup in this server, use \`/delete\` to delete the panel`, components: [link], ephemeral: true})
+      return interaction.reply({ content: `${info} ${bullet} There is already a panel setup in this server, use \`/delete\` to delete the panel`, components: [link], ephemeral: true})
       }
       
     let role = interaction.options.getRole('role');
@@ -28,7 +28,7 @@ module.exports = {
     let channel = interaction.options.getChannel('channel')
     if(!channel || channel === null) channel = interaction.channel
 
-    if(!channel.isText() || channel.isVoice()) return interaction.reply({ content: `${error} | The mentioned channel must be a text channel!`, ephemeral: true})
+    if(!channel.isText() || channel.isVoice()) return interaction.reply({ content: `${error} ${bullet} The mentioned channel must be a text channel!`, ephemeral: true})
 
 
     const row = new MessageActionRow().addComponents(new MessageButton().setCustomId('link').setLabel('Link Roblox Account').setStyle('SECONDARY'))
@@ -37,7 +37,7 @@ module.exports = {
     .setTitle("Link your Roblox Account")
     .setDescription("This server requires you to link your Roblox Account to gain access to additional features. Click the button below to start")
     .setColor("ORANGE")
-    .setFooter(`${interaction.guild.name} | RoAuth`)
+    .setFooter(`${interaction.guild.name} ${bullet} RoAuth`)
     console.log(channel.id)
     const sendc = client.channels.cache.get(channel.id); //console.log(channel.id)
       const msg = await sendc.send({ embeds: [embed], components: [row] })
@@ -46,7 +46,7 @@ module.exports = {
     
     
 
-    await interaction.reply({ content: `${success} | Created Panel in <#${channel.id}> with id: ${msg.id}`, ephemeral: true})
+    await interaction.reply({ content: `${success} ${bullet} Created Panel in <#${channel.id}> with id: ${msg.id}`, ephemeral: true})
 
     
   }
