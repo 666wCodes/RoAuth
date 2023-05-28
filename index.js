@@ -61,7 +61,8 @@ client.on('interactionCreate', async (interaction) => {
       }
 
       if(session !== null && sessioncode !== null){
-        return interaction.reply({ content: `${warn} ${bullet} You already have an on-going session, authentication code: \`${sessioncode}\``, ephemeral: true })
+        let sessionExpiresTimestamp = Math.floor(expires / 1000)
+        return interaction.reply({ content: `${warn} ${bullet} You already have an on-going session, authentication code: \`${sessioncode}\` (expires <t:${sessionExpiresTimestamp}:R>)`, ephemeral: true })
       }
 
       // Session
