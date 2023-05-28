@@ -1,10 +1,8 @@
 const db = require('quick.db');
 const { discord, MessageActionRow, MessageButton, Modal, TextInputComponent, client, MessageEmbed } = require('discord.js')
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { error, warn, success, info, bullet } = require('../symbols.json')
 const fs = require('fs');
-const json = fs.readFileSync('../symbols.json', 'utf8');
-const emoji = JSON.parse(json);
-
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -19,7 +17,7 @@ module.exports = {
     let channel = interaction.options.getChannel('channel')
     if(!channel || channel === null) channel = interaction.channel
 
-    if(channel.isText === false) return interaction.reply({ content: `${emoji.error} | The mentioned channel must be a text channel!`})
+    if(channel.isText === false) return interaction.reply({ content: `${error} | The mentioned channel must be a text channel!`})
 
 
     const row = new MessageActionRow().addComponents(new MessageButton().setCustomId('link').setLabel('Link Roblox Account').setStyle('SECONDARY'))
