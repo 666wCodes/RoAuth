@@ -20,10 +20,9 @@ module.exports = {
       let URLmessage = panels.split("-")[0]
       let URL = `https://discord.com/channels/${interaction.guild.id}/${URLchannel}/${URLmessage}`
       const link = new MessageActionRow().addComponents(new MessageButton().setURL(URL).setLabel('Go to Panel').setStyle('LINK'))
+      return interaction.reply({ content: `${info} | There is already a panel setup in this server, use \`/delete\` to delete the panel`, components: [link]})
       }
       
-
-      if(panels !== null) return interaction.reply({ content: `${info} | There is already a panel setup in this server, use \`/delete\` to delete the panel`, components: [link]})
     let role = interaction.options.getRole('role');
     let changeNick = interaction.options.getBoolean('change_nickname');
     let channel = interaction.options.getChannel('channel')
