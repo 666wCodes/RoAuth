@@ -39,7 +39,7 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });
 
-//WHERE EXPRESS ENDS
+//WHERE EXPRESS END
 
 const { Client, Intents, Collection } = require('discord.js');
 const { REST } = require('@discordjs/rest');
