@@ -29,9 +29,8 @@ module.exports = {
     .setFooter(`${interaction.guild.name} | RoAuth`)
     console.log(channel.id)
     const sendc = client.channels.cache.get(channel.id); //console.log(channel.id)
-    if(sendc){
-      let msg = await sendc.send({ embeds: [embed], components: [row] })
-    }
+      const msg = await sendc.send({ embeds: [embed], components: [row] })
+    
     
 
     await interaction.reply({ content: `${success} | Created Panel at <#${channel.id}> with id: ${msg.id}`})
