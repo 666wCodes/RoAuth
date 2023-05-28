@@ -1,7 +1,7 @@
 const db = require('quick.db');
-const { discord, MessageActionRow, MessageButton, Modal, TextInputComponent, MessageEmbed } = require('discord.js')
+const { discord, MessageActionRow, MessageButton, Modal, TextInputComponent, MessageEmbed, Permissions } = require('discord.js')
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { error, warn, success, info, bullet } = require('../symbols.json')
+const { error, warn, success, info, bullet, restricted } = require('../symbols.json')
 const fs = require('fs');
 
 module.exports = {
@@ -12,15 +12,15 @@ module.exports = {
     .addRoleOption(option => option.setName('role').setDescription('Role that will be given after linking').setRequired(false))
     .addChannelOption(option => option.setName('channel').setDescription('Where the message will be sent').setRequired(false)), 
     async execute(interaction, client) {
-      
-      
+      if(!interaction.guild) return interaction.reply({ content: `${warn} | This command can only be run in guilds`, ephemeral: true})
+      if(!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.reply({ content: `${restricted} | You do not have permission to run this command`, ephemeral: true})
       let panels = db.get(`panel-${interaction.guild.id}`)
       if(panels !== null){
       let URLchannel = panels.split("-")[1]
       let URLmessage = panels.split("-")[0]
       let URL = `https://discord.com/channels/${interaction.guild.id}/${URLchannel}/${URLmessage}`
       const link = new MessageActionRow().addComponents(new MessageButton().setURL(URL).setLabel('Go to Panel').setStyle('LINK'))
-      return interaction.reply({ content: `${info} | There is already a panel setup in this server, use \`/delete\` to delete the panel`, components: [link]})
+      return interaction.reply({ content: `${info} | There is already a panel setup in this server, use \`/delete\` to delete the panel`, components: [link], ephemeral: true})
       }
       
     let role = interaction.options.getRole('role');
