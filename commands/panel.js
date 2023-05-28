@@ -33,7 +33,7 @@ module.exports = {
     
     
 
-    await interaction.reply({ content: `${success} | Created Panel at <#${channel.id}> with id: ${msg.id}`})
+    await interaction.reply({ content: `${success} | Created Panel in <#${channel.id}> with id: ${msg.id}`, ephemeral: true})
 
     
   }
