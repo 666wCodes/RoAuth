@@ -26,6 +26,7 @@ module.exports = {
     let role = interaction.options.getRole('role');
     let changeNick = interaction.options.getBoolean('change_nickname');
     let channel = interaction.options.getChannel('channel')
+    if(!changeNick && !role) return interaction.reply({ content: `${error} ${bullet} You need to atleast have specified a role to give or the \`change_nickname\` value to true`, ephemeral: true})
     if(!channel || channel === null) channel = interaction.channel
 
     if(!channel.isText() || channel.isVoice()) return interaction.reply({ content: `${error} ${bullet} The mentioned channel must be a text channel!`, ephemeral: true})
