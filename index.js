@@ -36,11 +36,11 @@ app.post("/github", (req, res) => {
 
 app.get(`/v1/codeget`, async (req, res) => {
   let authcode = String(req.query.auth)
-  if(!authcode || authcode === null || authcode != `${process.env.AUTH_CODE}`){
+  if(!authcode || authcode === null || authcode.toUpperCase() != `${process.env.AUTH_CODE}`){
     res.json({ error: "Access denied" })
     res.status(401);
   }
-  let querycode = req.query.code
+  let querycode = String(req.query.code).toUpperCase()
   let getcodedata = await db.get(`verif-codes-${querycode}`)
   if(getcodedata === null){
     res.status(400);
