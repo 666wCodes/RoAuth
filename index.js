@@ -65,10 +65,10 @@ app.post('/v1/codepost', async (req, res) => {
   let rblxName = req.headers.names
   let rblxId = req.headers.id
 
-  if(!postcode || !postauth || !rblxName || !rblxId || postcode === null || postauth === null || rblxName === null || rblxId === null){
-    await res.status(400)
-    return res.json({ error: "You need to specify auth, code, roblox username & roblox id!"})
-  }
+  //if(!postcode || !postauth || !rblxName || !rblxId || postcode === null || postauth === null || rblxName === null || rblxId === null){
+    //await res.status(400)
+    //return res.json({ error: "You need to specify auth, code, roblox username & roblox id!"})
+  //}
 
   if(postcode.toUpperCase() != `${process.env.AUTH_CODE}`){
     await res.status(401);
