@@ -55,7 +55,7 @@ client.on('interactionCreate', async (interaction) => {
     let i = interaction
     
     if(i.customId === "link"){
-      
+      const link = new MessageActionRow().addComponents(new MessageButton().setURL("https://roblox.com/").setLabel('Join Roblox Game').setStyle('LINK')).addComponents(new MessageButton().setURL("https://discord.com/").setLabel('Support Server').setStyle('LINK'))
       let session = db.get(`session-${i.guild.id}-${i.user.id}`)
       let sessioncode = db.get(`sessioncode-${i.guild.id}-${i.user.id}`)
       let created = String(session).split("-")[0]
@@ -69,8 +69,23 @@ client.on('interactionCreate', async (interaction) => {
       }
       
       if(session !== null && sessioncode !== null){
+        let embed2 = new MessageEmbed()
+      .setTitle("How to link your Roblox Account")
+      .setColor("ORANGE")
+      .addFields({ name: "Your authentication code", value: `\`${vcode}\` (Expires <t:${times}:R>)`})
+      .setDescription(`
+Here are the steps to link your Roblox Account
+
+1 ${bullet} Join the Roblox game using the button below
+2 ${bullet} Once in the game, enter in your authentication code
+3 ${bullet} Verify that everything is entered correctly and submit
+4 ${bullet} Your Roblox account is now linked
+      
+If you need help or have a problem, join our Support Server.`)
+      .setTimestamp();
+
         let sessionExpiresTimestamp = Math.floor(expires / 1000)
-        return interaction.reply({ content: `${warn} ${bullet} You already have an on-going session, authentication code: \`${sessioncode}\` (expires <t:${sessionExpiresTimestamp}:R>)`, ephemeral: true })
+        return interaction.reply({ content: `${warn} ${bullet} You already have a session.`, embeds: [embed2], components: [link], ephemeral: true })
       }
 
       // Session
@@ -82,7 +97,7 @@ client.on('interactionCreate', async (interaction) => {
 
       db.set(`session-${i.guild.id}-${i.user.id}`, `${Date.now()}-${timestampExpire}`)
       db.set(`sessioncode-${i.guild.id}-${i.user.id}`, vcode)
-      const link = new MessageActionRow().addComponents(new MessageButton().setURL("https://roblox.com/").setLabel('Join Roblox Game').setStyle('LINK')).addComponents(new MessageButton().setURL("https://discord.com/").setLabel('Support Server').setStyle('LINK'))
+      
       let embed1 = new MessageEmbed()
       .setTitle("How to link your Roblox Account")
       .setColor("ORANGE")
