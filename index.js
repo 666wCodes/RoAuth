@@ -78,8 +78,8 @@ app.post('/v1/codepost', async (req, res) => {
 
 
   try{ 
-  let postdataguild = getcodedata.split("-")[0]
-  let postdatauser = getcodedata.split("-")[1]
+  let postdataguild = getpostcodedata.split("-")[0]
+  let postdatauser = getpostcodedata.split("-")[1]
 
         let roleid = db.get(`paneldata-role-${postdataguild}`)
         let changenick = db.get(`paneldata-nick-${postdataguild}`)
