@@ -38,6 +38,12 @@ app.get(`/robloxapi?code=test`, (req, res) => {
   //process.exit();
 })
 
+app.get(`/robloxapi`, (req, res) => {
+  res.send("Done 1")
+  res.status(200);
+  //process.exit();
+})
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });
