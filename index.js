@@ -10,7 +10,7 @@ function createCode(length) {
   return result;
 }
 
-
+const { Client, Intents, Collection, MessageEmbed, MessageActionRow, MessageButton, Permissions } = require('discord.js');
 const gamelink = "https://roblox.com/game/testworks"
 const db = require('quick.db');
 const { error, warn, success, info, bullet, restricted } = require('./symbols.json')
@@ -159,7 +159,6 @@ app.listen(PORT, () => {
 
 //WHERE EXPRESS END
 
-const { Client, Intents, Collection, MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const fs = require('fs');
@@ -172,7 +171,7 @@ client.on('interactionCreate', async (interaction) => {
       //if(i.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.editReply({ content: `${warn} ${bullet} You are an admin, you do not need to link your account here.`, ephemeral: true })
       await db.delete(`profile-${i.guild.id}-${i.user.id}`)
       await db.delete(`verified-${i.guild.id}-${i.user.id}`)
-      await interaction.editReply({ content: `${success} ${bullet} Unlinked, please click the link button again.`, components: [], ephemeral: true })
+      await interaction.update({ content: `${success} ${bullet} Unlinked, please click the link button again.`, components: [], ephemeral: true })
     }
     if(i.customId === "link"){
       //if(i.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.editReply({ content: `${warn} ${bullet} You are an admin, you do not need to link your account here.`, ephemeral: true })
@@ -185,7 +184,7 @@ client.on('interactionCreate', async (interaction) => {
 
       if(verifiedAlr !== null){
         const reVer = new MessageActionRow().addComponents(new MessageButton().setCustomId('re').setLabel('Re-link Roblox Account').setStyle('SECONDARY'))
-        return interaction.reply({ content: `${warn} ${bullet} Your account is already linked in this server, BUT you can re-link your account using the button below.`, components: [reVer], ephemeral: true })
+        return interaction.reply({ content: `${warn} ${bullet} Your account is already linked in this server, BUT you can un-link and link again using the button below.`, components: [reVer], ephemeral: true })
       }
 
       if(Date.now() >= expires){
