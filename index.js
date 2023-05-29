@@ -62,7 +62,7 @@ app.get(`/v1/codeget`, async (req, res) => {
 app.post('/v1/codepost', async (req, res) => {
   let postcode = req.headers.code
   let postauth = req.headers.auth
-  let rblxName = req.headers.name
+  let rblxName = req.headers.names
   let rblxId = req.headers.id
 
   if(!postcode || !postauth || !rblxName || !rblxId || postcode === null || postauth === null || rblxName === null || rblxId === null){
@@ -72,7 +72,7 @@ app.post('/v1/codepost', async (req, res) => {
 
   if(postcode.toUpperCase() != `${process.env.AUTH_CODE}`){
     await res.status(401);
-    res.json({ error: "Access denied" })
+    return res.json({ error: "Access denied" })
   }
 
   let getpostcodedata = await db.get(`verif-codes-${postcode}`)
@@ -148,7 +148,7 @@ app.post('/v1/codepost', async (req, res) => {
       let strText = "Thanks for using **RoAuth** :)";
       if(UserDiscord.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) strText = "Oh, it looks like you are a server administrator there, that means that you won\'t be given a role or nickname change. But fear not! Your cool Roblox account is now displayed in \`/flex\` so you can go flex to your buddies!\n\nAnyway thanks for using **RoAuth** :)"
       try{
-      await UserDisc.send(`You are now linked as ${rblxName}! In **${GuildDiscord.name}**.\n${strText}`)
+      await UserDisc.send(`You are now linked as ${rblxName} in **${GuildDiscord.name}**.\n${strText}`)
       } catch {
         await res.status(200);
         return res.json({ warn: "Cannot send dm to that user, make sure he has DMs enabled, it is very important", success: "true", time: `${timeTook}ms`})
