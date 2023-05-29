@@ -81,8 +81,8 @@ app.post('/v1/codepost', async (req, res) => {
   let postdataguild = getpostcodedata.split("-")[0]
   let postdatauser = getpostcodedata.split("-")[1]
 
-        let roleid = db.get(`paneldata-role-${postdataguild}`)
-        let changenick = db.get(`paneldata-nick-${postdataguild}`)
+        const roleid = db.get(`paneldata-role-${postdataguild}`)
+        const changenick = db.get(`paneldata-nick-${postdataguild}`)
         
         const GuildDiscord = await client.guilds.fetch(postdataguild);
         const UserDiscord = await GuildDiscord.members.fetch(postdatauser);
