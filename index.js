@@ -38,7 +38,7 @@ app.get(`/v1/codeget`, async (req, res) => {
   let authcode = String(req.query.auth)
   if(!authcode || authcode === null || authcode.toUpperCase() != `${process.env.AUTH_CODE}`){
     await res.status(401);
-    res.json({ error: "Access denied" })
+    return res.json({ error: "Access denied" })
   }
   let querycode = String(req.query.code).toUpperCase()
   let getcodedata = await db.get(`verif-codes-${querycode}`)
@@ -65,12 +65,12 @@ app.post('/v1/codepost', async (req, res) => {
   let rblxName = req.headers.names
   let rblxId = req.headers.id
 
-  //if(!postcode || !postauth || !rblxName || !rblxId || postcode === null || postauth === null || rblxName === null || rblxId === null){
+  //if(!postcode || !postauth || !rbslxName || !rblxId || postcode === null || postauth === null || rblxName === null || rblxId === null){
     //await res.status(400)
     //return res.json({ error: "You need to specify auth, code, roblox username & roblox id!"})
   //}
 
-  if(String(postcode).toUpperCase() != `${process.env.AUTH_CODE}`){
+  if(String(postauth).toUpperCase() != `${process.env.AUTH_CODE}`){
     await res.status(401);
     return res.json({ error: "Access denied" })
   }
