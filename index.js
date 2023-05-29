@@ -69,10 +69,11 @@ client.on('interactionCreate', async (interaction) => {
       }
       
       if(session !== null && sessioncode !== null){
+        let sessionExpiresTimestamp = Math.floor(expires / 1000)
         let embed2 = new MessageEmbed()
       .setTitle("How to link your Roblox Account")
       .setColor("ORANGE")
-      .addFields({ name: "Your authentication code", value: `\`${vcode}\` (Expires <t:${times}:R>)`})
+      .addFields({ name: "Your authentication code", value: `\`${sessioncode}\` (Expires <t:${sessionExpiresTimestamp}:R>)`})
       .setDescription(`
 Here are the steps to link your Roblox Account
 
@@ -84,7 +85,7 @@ Here are the steps to link your Roblox Account
 If you need help or have a problem, join our Support Server.`)
       .setTimestamp();
 
-        let sessionExpiresTimestamp = Math.floor(expires / 1000)
+        
         return interaction.reply({ content: `${warn} ${bullet} You already have a session.`, embeds: [embed2], components: [link], ephemeral: true })
       }
 
