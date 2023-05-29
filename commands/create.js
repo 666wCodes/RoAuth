@@ -3,11 +3,12 @@ const { discord, MessageActionRow, MessageButton, Modal, TextInputComponent, Mes
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { error, warn, success, info, bullet, restricted } = require('../symbols.json')
 const fs = require('fs');
+require('dotenv').config()
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('create')
-    .setDescription('Creates a message where users can get roles, etc when they linked their Roblox account')
+    .setDescription('Creates a link panel where users can get roles or nickname change')
     .addBooleanOption(option => option.setName('change_nickname').setDescription('Whether user\'s nicknames will be set as their Roblox username').setRequired(true))
     .addRoleOption(option => option.setName('role').setDescription('Role that will be given after linking').setRequired(false))
     .addChannelOption(option => option.setName('channel').setDescription('Where the message will be sent').setRequired(false)), 

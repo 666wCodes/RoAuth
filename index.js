@@ -14,6 +14,7 @@ function createCode(length) {
 const gamelink = "https://roblox.com/game/testworks"
 const db = require('quick.db');
 const { error, warn, success, info, bullet, restricted } = require('./symbols.json')
+require('dotenv').config()
 
 
 //WHERE EXPRESS STARTS
