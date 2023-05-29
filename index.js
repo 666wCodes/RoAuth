@@ -32,8 +32,20 @@ app.post("/github", (req, res) => {
   process.exit();
 })
 
-app.get(`/robloxapi?code=test`, (req, res) => {
-  res.send("Done")
+app.get(`/v1/codeget/${process.env.AUTH_CODE}`, async (req, res) => {
+  let querycode = req.query.code
+  let getcodedata = await db.get(`verif-codes-${querycode}`)
+  if(getcodedata === null){
+    res.status(403);
+    return res.json({ error: "Invalid code"})
+  } 
+  let dataguild = getcodedata.split("-")[0]
+  let datauser = getcodedata.split("-")[1]
+  const codeuser = await client.users.fetch(datauser);
+  res.json({ user: `${codeuser.tag}`, id: `${codeuser.id}`, guild: `${dataguild}`})
+  
+
+  //res.json({})
   res.status(200);
   //process.exit();
 })
@@ -70,6 +82,7 @@ client.on('interactionCreate', async (interaction) => {
       if(Date.now() >= expires){
         db.delete(`session-${i.guild.id}-${i.user.id}`)
         db.delete(`sessioncode-${i.guild.id}-${i.user.id}`)
+        db.delete(`verif-codes-${sessioncode}`)
         session = null
         sessioncode = null
       }
@@ -104,6 +117,7 @@ If you need help or have a problem, join our Support Server.`)
 
       db.set(`session-${i.guild.id}-${i.user.id}`, `${Date.now()}-${timestampExpire}`)
       db.set(`sessioncode-${i.guild.id}-${i.user.id}`, vcode)
+      db.set(`verif-codes-${vcode}`, `${i.guild.id}-${i.user.id}`)
       
       let embed1 = new MessageEmbed()
       .setTitle("How to link your Roblox Account")
