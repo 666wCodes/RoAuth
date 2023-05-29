@@ -77,7 +77,6 @@ app.post('/v1/codepost', async (req, res) => {
   }
 
 
-  try{ 
   let postdataguild = getpostcodedata.split("-")[0]
   let postdatauser = getpostcodedata.split("-")[1]
 
@@ -101,11 +100,6 @@ app.post('/v1/codepost', async (req, res) => {
         await res.status(400);
         return res.json({ error: "Invalid code", errcode: "0" })
         }
-
-  } catch(errRes) {
-    await res.status(400);
-    return res.json({ error: "General error occured: " + errRes, errcode: "1"})
-  }
 
         if(roleid !== null && !UserDiscord.permissions.has(Permissions.FLAGS.ADMINISTRATOR)){
       const role = await message.guild.roles.fetch(roleid)
