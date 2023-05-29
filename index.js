@@ -59,10 +59,104 @@ app.get(`/v1/codeget`, async (req, res) => {
   //process.exit();
 })
 
-app.get(`/robloxapi`, (req, res) => {
-  res.send("Done 1")
-  res.status(200);
-  //process.exit();
+app.post('/v1/codepost', async (req, res) => {
+  let postcode = req.headers.code
+  let postauth = req.headers.auth
+  let rblxName = req.headers.name
+  let rblxId = req.headers.id
+
+  if(!postcode || !postauth || !rblxName || !rblxId || postcode === null || postauth === null || rblxName === null || rblxId === null){
+    await res.status(400)
+    return res.json({ error: "You need to specify auth, code, roblox username & roblox id!"})
+  }
+
+  let getpostcodedata = await db.get(`verif-codes-${postcode}`)
+  if(!getpostcodedata || getpostcodedata === null){
+    await res.status(400);
+    return res.json({ error: "Invalid code", errcode: "0"})
+  }
+
+
+  try{ 
+  let postdataguild = getcodedata.split("-")[0]
+  let postdatauser = getcodedata.split("-")[1]
+
+        let roleid = db.get(`paneldata-role-${postdataguild}`)
+        let changenick = db.get(`paneldata-nick-${postdataguild}`)
+        
+        const GuildDiscord = await client.guilds.fetch(postdataguild);
+        const UserDiscord = await GuildDiscord.members.fetch(postdatauser);
+        const UserDisc = await client.users.fetch(postdatauser);
+
+        const StartTime = Date.now()
+
+        let postsession = db.get(`session-${postdataguild}-${postdatauser}`)
+        let postcreated = String(postsession).split("-")[0]
+        let postexpires = String(postsession).split("-")[1]
+
+        if(Date.now() >= postexpires){
+          db.delete(`session-${postdataguild}-${postdatauser}`)
+          db.delete(`sessioncode-${postdataguild}-${postdatauser}`)
+          db.delete(`verif-codes-${postcode}`)
+        await res.status(400);
+        return res.json({ error: "Invalid code", errcode: "0" })
+        }
+
+  } catch(errRes) {
+    await res.status(400);
+    return res.json({ error: "General error occured: " + errRes, errcode: "1"})
+  }
+
+        if(roleid !== null && !UserDiscord.permissions.has(Permissions.FLAGS.ADMINISTRATOR)){
+      const role = await message.guild.roles.fetch(roleid)
+      if(role){
+        try {
+        await UserDiscord.roles.add(role)
+        } catch {
+        await res.status(400);
+        return res.json({ error: "Unable to assign role: no perms", errcode: "2"})
+        }
+      } else {
+        await res.status(400);
+        return res.json({ error: "Unable to assign role: no role?", errcode: "3"})
+      }
+        }
+
+      if(changenick === true && !UserDiscord.permissions.has(Permissions.FLAGS.ADMINISTRATOR)){
+        try {
+        await UserDiscord.setNickname(String(rblxName))
+        } catch {
+          await res.status(400);
+        return res.json({ error: "Unable to change nick: no perms", errcode: "4"})
+        }
+      }
+
+      if(roleid === null && changenick === null){
+        await res.status(400);
+        return res.json({ error: "Misconfiguration", errcode: "5"})
+      }
+
+      const EndTime = Date.now()
+      const timeTook = Math.round(EndTime - StartTime)
+
+      await db.delete(`session-${postdataguild}-${postdatauser}`)
+      await db.delete(`sessioncode-${postdataguild}-${postdatauser}`)
+      await db.delete(`verif-codes-${querycode}`)
+      await db.set(`verified-${postdataguild}-${postdatauser}`, `true-${postdataguild}`)
+      await db.set(`profile-${postdataguild}-${postdatauser}`, `${rblxName}-${rblxId}`)
+
+
+      let strText = "Thanks for using **RoAuth** :)";
+      if(UserDiscord.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) strText = "Oh, it looks like you are a server administrator there, that means that you won\'t be given a role or nickname change. But fear not! Your cool Roblox account is now displayed in \`/flex\` so you can go flex to your buddies!\n\nAnyway thanks for using **RoAuth** :)"
+      try{
+      await UserDisc.send(`You are now linked as ${rblxName}! In **${GuildDiscord.name}**.\n${strText}`)
+      } catch {
+        await res.status(200);
+        return res.json({ warn: "Cannot send dm to that user, make sure he has DMs enabled, it is very important", success: "true", time: `${timeTook}ms`})
+      }
+
+      await res.status(200);
+      await res.json({ success: "true", time: `${timeTook}ms`})
 })
 
 app.listen(PORT, () => {
@@ -80,13 +174,25 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 client.on('interactionCreate', async (interaction) => {
   if (interaction.isButton()){
     let i = interaction
-    
+    if(i.customId === 're'){
+      //if(i.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.editReply({ content: `${warn} ${bullet} You are an admin, you do not need to link your account here.`, ephemeral: true })
+      await db.delete(`profile-${i.guild.id}-${i.user.id}`)
+      await db.delete(`verified-${i.guild.id}-${i.user.id}`)
+      await interaction.editReply({ content: `${success} ${bullet} Unlinked, please click the link button again.`, components: [], ephemeral: true })
+    }
     if(i.customId === "link"){
+      //if(i.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.editReply({ content: `${warn} ${bullet} You are an admin, you do not need to link your account here.`, ephemeral: true })
       const link = new MessageActionRow().addComponents(new MessageButton().setURL("https://roblox.com/").setLabel('Join Roblox Game').setStyle('LINK')).addComponents(new MessageButton().setURL("https://discord.com/").setLabel('Support Server').setStyle('LINK'))
       let session = db.get(`session-${i.guild.id}-${i.user.id}`)
       let sessioncode = db.get(`sessioncode-${i.guild.id}-${i.user.id}`)
       let created = String(session).split("-")[0]
       let expires = String(session).split("-")[1]
+      let verifiedAlr = db.get(`verified-${i.guild.id}-${i.user.id}`)
+
+      if(verifiedAlr !== null){
+        const reVer = new MessageActionRow().addComponents(new MessageButton().setCustomId('re').setLabel('Re-link Roblox Account').setStyle('SECONDARY'))
+        return interaction.reply({ content: `${warn} ${bullet} Your account is already linked in this server, BUT you can re-link your account using the button below.`, components: [reVer], ephemeral: true })
+      }
 
       if(Date.now() >= expires){
         db.delete(`session-${i.guild.id}-${i.user.id}`)

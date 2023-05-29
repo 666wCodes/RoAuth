@@ -44,6 +44,8 @@ module.exports = {
     const sendc = client.channels.cache.get(channel.id); //console.log(channel.id)
       const msg = await sendc.send({ embeds: [embed], components: [row] })
       await db.set(`panel-${interaction.guild.id}`, `${msg.id}-${msg.channel.id}`)
+      if(role || role !== null) await db.set(`paneldata-role-${interaction.guild.id}`, `${role.id}`)
+      await db.set(`paneldata-nick-${interaction.guild.id}`, `${changeNick}`)
 
     
     

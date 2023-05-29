@@ -17,6 +17,8 @@ module.exports = {
         let channelid = panels.split("-")[1]
         let messageid = panels.split("-")[0]
         await db.delete(`panel-${interaction.guild.id}`)
+        await db.delete(`paneldata-role-${interaction.guild.id}`)
+        await db.delete(`paneldata-nick-${interaction.guild.id}`)
         interaction.channel.messages.delete(messageid)
         .then(() => {
         interaction.reply({ content: `${success} ${bullet} Panel was deleted from the Database and from Discord`, ephemeral: true})
