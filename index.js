@@ -32,7 +32,7 @@ app.post("/github", (req, res) => {
   process.exit();
 })
 
-app.get(`/robloxapi?code=${process.env.AUTH_CODE}`, (req, res) => {
+app.get(`/robloxapi?code=test`, (req, res) => {
   res.send("Done")
   res.status(200);
   //process.exit();
@@ -64,15 +64,17 @@ client.on('interactionCreate', async (interaction) => {
       if(Date.now() >= expires){
         db.delete(`session-${i.guild.id}-${i.user.id}`)
         db.delete(`sessioncode-${i.guild.id}-${i.user.id}`)
+        session = null
+        sessioncode = null
       }
-
+      
       if(session !== null && sessioncode !== null){
         let sessionExpiresTimestamp = Math.floor(expires / 1000)
         return interaction.reply({ content: `${warn} ${bullet} You already have an on-going session, authentication code: \`${sessioncode}\` (expires <t:${sessionExpiresTimestamp}:R>)`, ephemeral: true })
       }
 
       // Session
-      let vcode = createCode(6)
+      let vcode = createCode(8)
       let times = Math.floor(Date.now() / 1000)
       times = times + 600
 
@@ -86,14 +88,14 @@ client.on('interactionCreate', async (interaction) => {
       .setColor("ORANGE")
       .addFields({ name: "Your authentication code", value: `\`${vcode}\` (Expires <t:${times}:R>)`})
       .setDescription(`
-      Here are the steps to link your Roblox Account
+Here are the steps to link your Roblox Account
 
-      1 ${bullet} Join the Roblox game using the button below
-      2 ${bullet} Once in the game, enter in your authentication code
-      3 ${bullet} Verify that everything is entered correctly and submit
-      4 ${bullet} Your Roblox account is now linked
+1 ${bullet} Join the Roblox game using the button below
+2 ${bullet} Once in the game, enter in your authentication code
+3 ${bullet} Verify that everything is entered correctly and submit
+4 ${bullet} Your Roblox account is now linked
       
-      If you need help or have a problem, join our Support Server.`)
+If you need help or have a problem, join our Support Server.`)
       .setTimestamp();
 		  await i.reply({ embeds: [embed1], components: [link], ephemeral: true });
     }
