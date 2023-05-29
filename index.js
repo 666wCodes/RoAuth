@@ -70,7 +70,7 @@ app.post('/v1/codepost', async (req, res) => {
     //return res.json({ error: "You need to specify auth, code, roblox username & roblox id!"})
   //}
 
-  if(postcode.toUpperCase() != `${process.env.AUTH_CODE}`){
+  if(string(postcode).toUpperCase() != `${process.env.AUTH_CODE}`){
     await res.status(401);
     return res.json({ error: "Access denied" })
   }
