@@ -37,13 +37,13 @@ app.post("/github", (req, res) => {
 app.get(`/v1/codeget`, async (req, res) => {
   let authcode = String(req.query.auth)
   if(!authcode || authcode === null || authcode.toUpperCase() != `${process.env.AUTH_CODE}`){
+    await res.status(401);
     res.json({ error: "Access denied" })
-    res.status(401);
   }
   let querycode = String(req.query.code).toUpperCase()
   let getcodedata = await db.get(`verif-codes-${querycode}`)
   if(getcodedata === null){
-    res.status(400);
+    await res.status(400);
     return res.json({ error: "Invalid code"})
   }
 
@@ -51,11 +51,11 @@ app.get(`/v1/codeget`, async (req, res) => {
   let dataguild = getcodedata.split("-")[0]
   let datauser = getcodedata.split("-")[1]
   const codeuser = await client.users.fetch(datauser);
+  await res.status(200);
   res.json({ user: `${codeuser.tag}`, id: `${codeuser.id}`, guild: `${dataguild}`})
   
 
-  //res.json({})
-  res.status(200);
+  //res.json({
   //process.exit();
 })
 
