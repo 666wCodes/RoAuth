@@ -135,7 +135,7 @@ app.post('/v1/codepost', async (req, res) => {
 
       await db.delete(`session-${postdataguild}-${postdatauser}`)
       await db.delete(`sessioncode-${postdataguild}-${postdatauser}`)
-      await db.delete(`verif-codes-${querycode}`)
+      await db.delete(`verif-codes-${postcode}`)
       await db.set(`verified-${postdataguild}-${postdatauser}`, `true-${postdataguild}`)
       await db.set(`profile-${postdataguild}-${postdatauser}`, `${rblxName}-${rblxId}`)
 
