@@ -62,10 +62,6 @@ let gsession = db.get(`session-${dataguild}-${datauser}`)
         return res.json({ error: "Invalid code"})
         }
 
-
-  let dataguild = getcodedata.split("-")[0]
-  let datauser = getcodedata.split("-")[1]
-  const codeuser = await client.users.fetch(datauser);
   await res.status(200);
   res.json({ user: `${codeuser.tag}`, id: `${codeuser.id}`, guild: `${dataguild}`})
   
