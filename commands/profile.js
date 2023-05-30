@@ -62,7 +62,7 @@ module.exports = {
         const embed = new MessageEmbed()
         .setTitle(`${username}`)
         .setThumbnail(await getRobloxProfilePicture(id))
-        .setDescription(`[${username}](${link}) is linked to Discord account: ${interaction.user.tag}`)
+        .setDescription(`[${username}](${link}) is linked to ${interaction.user.tag}`)
         .setTimestamp()
         .setColor("RANDOM")
 
