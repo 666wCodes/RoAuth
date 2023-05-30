@@ -197,6 +197,10 @@ client.on('interactionCreate', async (interaction) => {
       let expires = String(session).split("-")[1]
       let verifiedAlr = db.get(`verified-${i.guild.id}-${i.user.id}`)
 
+      let getpanelstats = await db.get(`panel-${i.guild.id}`)
+      if(getpanelstats === null || !getpanelstats) return interaction.reply({ content: `${warn} ${bullet} A panel is not setup in this server, therefore linking is disabled`, ephemeral: true })
+    
+
       if(verifiedAlr !== null){
         const reVer = new MessageActionRow().addComponents(new MessageButton().setCustomId('re').setLabel('unlink Roblox Account').setStyle('SECONDARY'))
         return interaction.reply({ content: `${warn} ${bullet} Your account is already linked in this server, BUT you can unlink and link again using the button below.`, components: [reVer], ephemeral: true })
