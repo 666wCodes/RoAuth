@@ -54,7 +54,7 @@ module.exports = {
         const i = interaction
         if(!interaction.guild) return interaction.reply({ content: `${warn} ${bullet} This command can only be run in guilds`, ephemeral: true})
         let profile = await db.get(`profile-${i.guild.id}-${i.user.id}`)
-        if(!profile || profile === null) return interaction.reply({ content: `${error} ${bullet} You have not linked your account yet`})
+        if(!profile || profile === null) return interaction.reply({ content: `${error} ${bullet} You have not linked your account yet`, ephemeral: true})
         let username = profile.split("-")[0]
         let id = profile.split("-")[1]
 
