@@ -190,7 +190,7 @@ client.on('interactionCreate', async (interaction) => {
     }
     if(i.customId === "link"){
       //if(i.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.editReply({ content: `${warn} ${bullet} You are an admin, you do not need to link your account here.`, ephemeral: true })
-      const link = new MessageActionRow().addComponents(new MessageButton().setURL("https://roblox.com/").setLabel('Join Roblox Game').setStyle('LINK')).addComponents(new MessageButton().setURL("https://discord.com/").setLabel('Support Server').setStyle('LINK'))
+      const link = new MessageActionRow().addComponents(new MessageButton().setURL("https://www.roblox.com/games/13596282742/RoAuth-Verification-Place").setLabel('Join Roblox Game').setStyle('LINK')).addComponents(new MessageButton().setURL("https://discord.com/").setLabel('Support Server').setStyle('LINK'))
       let session = db.get(`session-${i.guild.id}-${i.user.id}`)
       let sessioncode = db.get(`sessioncode-${i.guild.id}-${i.user.id}`)
       let created = String(session).split("-")[0]
@@ -202,7 +202,7 @@ client.on('interactionCreate', async (interaction) => {
     
 
       if(verifiedAlr !== null){
-        const reVer = new MessageActionRow().addComponents(new MessageButton().setCustomId('re').setLabel('unlink Roblox Account').setStyle('SECONDARY'))
+        const reVer = new MessageActionRow().addComponents(new MessageButton().setCustomId('re').setLabel('Unlink Roblox Account').setStyle('SECONDARY'))
         return interaction.reply({ content: `${warn} ${bullet} Your account is already linked in this server, BUT you can unlink and link again using the button below.`, components: [reVer], ephemeral: true })
       }
 
