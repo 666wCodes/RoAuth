@@ -186,7 +186,7 @@ client.on('interactionCreate', async (interaction) => {
       await db.delete(`verified-${i.guild.id}-${i.user.id}`)
       await db.delete(`rblx-verified-${ReVerID}`)
       await db.delete(`profile-${i.guild.id}-${i.user.id}`)
-      await interaction.update({ content: `${success} ${bullet} Unlinked, please click the link button again.`, components: [], ephemeral: true })
+      await interaction.update({ content: `${success} ${bullet} Unlinked, please continute linking by pressing the button below the panel or using \`/link\`.`, components: [], ephemeral: true })
     }
     if(i.customId === "link"){
       //if(i.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.editReply({ content: `${warn} ${bullet} You are an admin, you do not need to link your account here.`, ephemeral: true })

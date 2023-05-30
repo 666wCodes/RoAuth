@@ -1,3 +1,15 @@
+function createCode(length) {
+  let result = '';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  const charactersLength = characters.length;
+  let counter = 0;
+  while (counter < length) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    counter += 1;
+  }
+  return result;
+}
+
 const db = require('quick.db');
 const { MessageManager, discord, MessageActionRow, MessageButton, Modal, TextInputComponent, MessageEmbed, Permissions } = require('discord.js')
 const { SlashCommandBuilder } = require('@discordjs/builders');
@@ -25,7 +37,7 @@ if(getpanelstats === null || !getpanelstats) return interaction.reply({ content:
 
 
 if(verifiedAlr !== null){
-  const reVer = new MessageActionRow().addComponents(new MessageButton().setCustomId('re').setLabel('unlink Roblox Account').setStyle('SECONDARY'))
+  const reVer = new MessageActionRow().addComponents(new MessageButton().setCustomId('re').setLabel('Unlink Roblox Account').setStyle('SECONDARY'))
   return interaction.reply({ content: `${warn} ${bullet} Your account is already linked in this server, BUT you can unlink and link again using the button below.`, components: [reVer], ephemeral: true })
 }
 
