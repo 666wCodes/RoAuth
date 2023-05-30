@@ -275,6 +275,10 @@ If you need help or have a problem, join our Support Server.`)
 client.on('ready', async () => {
   console.clear()
   console.log(`${success} ${bullet} ${client.user.tag} is online!`)
+  client.user.setPresence({
+    activities: [{ name: '/help & /link', type: 'WATCHING' }],
+    status: 'dnd',
+  });
 })
 
 // Create a collection to store the slash commands
