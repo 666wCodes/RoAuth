@@ -145,10 +145,10 @@ app.post('/v1/codepost', async (req, res) => {
       await db.set(`profile-${postdataguild}-${postdatauser}`, `${rblxName}-${rblxId}`)
 
 
-      let strText = "Thanks for using **RoAuth** :)";
-      if(UserDiscord.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) strText = "Oh, it looks like you are a server administrator there, that means that you won\'t be given a role or nickname change. But fear not! Your cool Roblox account is now displayed in \`/flex\` so you can go flex to your buddies!\n\nAnyway thanks for using **RoAuth** :)"
+      let strText = ".";
+      if(UserDiscord.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) strText = "\nbecause you are a server admin, you have not been granted roles or had your nickname changed."
       try{
-      await UserDisc.send(`You are now linked as ${rblxName} in **${GuildDiscord.name}**.\n${strText}`)
+      await UserDisc.send(`You are now linked as **${rblxName}** in **${GuildDiscord.name}**${strText}`)
       } catch {
         await res.status(200);
         return res.json({ warn: "Cannot send dm to that user, make sure he has DMs enabled, it is very important", success: "true", time: `${timeTook}ms`})
