@@ -7,7 +7,7 @@ require('dotenv').config()
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('create')
+    .setName('profile')
     .setDescription('Your linked account data')
     .addBooleanOption(option => option.setName('private').setDescription('Whether the message is hidden to others').setRequired(true)),
     async execute(interaction, client) {
