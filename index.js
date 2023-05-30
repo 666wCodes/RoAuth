@@ -107,7 +107,7 @@ app.post('/v1/codepost', async (req, res) => {
         }
 
         if(roleid !== null && !UserDiscord.permissions.has(Permissions.FLAGS.ADMINISTRATOR)){
-      const role = await message.guild.roles.fetch(roleid)
+      const role = await GuildDiscord.roles.fetch(roleid)
       if(role){
         try {
         await UserDiscord.roles.add(role)
