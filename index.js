@@ -228,7 +228,7 @@ Here are the steps to link your Roblox Account
 3 ${bullet} Verify that everything is entered correctly and submit
 4 ${bullet} Your Roblox account is now linked
       
-If you need help or have a problem, join our Support Server.`)
+If you need help or have an issue, seek help in our Support Server.`)
       .setTimestamp();
 
         
