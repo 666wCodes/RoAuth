@@ -24,7 +24,7 @@ module.exports = {
     async execute(interaction, client) {
         const i = interaction
         if(!interaction.guild) return interaction.reply({ content: `${warn} ${bullet} This command can only be run in guilds`, ephemeral: true})
-//if(i.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.editReply({ content: `${warn} ${bullet} You are an admin, you do not need to link your account here.`, ephemeral: true })
+//eif(i.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.editReply({ content: `${warn} ${bullet} You are an admin, you do not need to link your account here.`, ephemeral: true })
 const link = new MessageActionRow().addComponents(new MessageButton().setURL("https://www.roblox.com/games/13596282742/RoAuth-Verification-Place").setLabel('Join Roblox Game').setStyle('LINK')).addComponents(new MessageButton().setURL("https://discord.com/").setLabel('Support Server').setStyle('LINK'))
 let session = db.get(`session-${i.guild.id}-${i.user.id}`)
 let sessioncode = db.get(`sessioncode-${i.guild.id}-${i.user.id}`)
