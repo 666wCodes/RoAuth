@@ -47,6 +47,21 @@ app.get(`/v1/codeget`, async (req, res) => {
     return res.json({ error: "Invalid code"})
   }
 
+  let dataguild = getcodedata.split("-")[0]
+  let datauser = getcodedata.split("-")[1]
+  const codeuser = await client.users.fetch(datauser);
+let gsession = db.get(`session-${dataguild}-${datauser}`)
+        let gcreated = String(gsession).split("-")[0]
+        let gexpires = String(gsession).split("-")[1]
+    
+    if(Date.now() >= gexpires){
+          db.delete(`session-${dataguild}-${datauser}`)
+          db.delete(`sessioncode-${dataguild}-${datauser}`)
+          db.delete(`verif-codes-${querycode}`)
+        await res.status(400);
+        return res.json({ error: "Invalid code"})
+        }
+
 
   let dataguild = getcodedata.split("-")[0]
   let datauser = getcodedata.split("-")[1]
@@ -103,7 +118,7 @@ app.post('/v1/codepost', async (req, res) => {
           db.delete(`sessioncode-${postdataguild}-${postdatauser}`)
           db.delete(`verif-codes-${postcode}`)
         await res.status(400);
-        return res.json({ error: "Invalid code", errcode: "0" })
+        return res.json({ error: "Invalid code"})
         }
 
         let accrobloxAlrV = db.get(`rblx-verified-${rblxId}`)
