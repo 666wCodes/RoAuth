@@ -1,3 +1,43 @@
+const https = require('https');
+
+function getRobloxProfilePicture(robloxId) {
+  return new Promise((resolve, reject) => {
+    const options = {
+      hostname: 'thumbnails.roblox.com',
+      path: `/v1/users/avatar?userIds=${robloxId}&size=720x720&format=Png&isCircular=false`,
+      method: 'GET',
+    };
+
+    const request = https.request(options, response => {
+      let data = '';
+
+      response.on('data', chunk => {
+        data += chunk;
+      });
+
+      response.on('end', () => {
+        const parsedData = JSON.parse(data);
+
+        if (parsedData.data.length > 0) {
+          const imageUrl = parsedData.data[0].imageUrl;
+          console.log(`Profile Picture URL: ${imageUrl}`);
+          resolve(imageUrl);
+        } else {
+          console.log(`No profile picture found for Roblox ID: ${robloxId}`);
+          resolve(null);
+        }
+      });
+    });
+
+    request.on('error', error => {
+      console.error('Error retrieving profile picture:', error.message);
+      reject(error);
+    });
+
+    request.end();
+  });
+}
+
 const db = require('quick.db');
 const { discord, MessageActionRow, MessageButton, Modal, TextInputComponent, MessageEmbed, Permissions } = require('discord.js')
 const { SlashCommandBuilder } = require('@discordjs/builders');
@@ -21,7 +61,7 @@ module.exports = {
         let link = `https://www.roblox.com/users/${id}/profile`
         const embed = new MessageEmbed()
         .setTitle(`${username}`)
-        .setThumbnail(link)
+        .setThumbnail(getRobloxProfilePicture(id))
         .setDescription(`[${username}](${link}) is linked to Discord account: ${interaction.user.tag}`)
         .setTimestamp()
         .setColor("RANDOM")
