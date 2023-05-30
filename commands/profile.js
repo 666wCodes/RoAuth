@@ -8,9 +8,10 @@ require('dotenv').config()
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('profile')
-    .setDescription('Your linked account data')
+    .setDescription('Your linked Roblox account data')
     .addBooleanOption(option => option.setName('private').setDescription('Whether the message is hidden to others').setRequired(true)),
     async execute(interaction, client) {
+        const i = interaction
         if(!interaction.guild) return interaction.reply({ content: `${warn} ${bullet} This command can only be run in guilds`, ephemeral: true})
         let profile = await db.get(`profile-${i.guild.id}-${i.user.id}`)
         if(!profile || profile === null) return interaction.reply({ content: `${error} ${bullet} You have not linked your account yet`})
