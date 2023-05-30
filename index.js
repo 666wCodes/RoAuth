@@ -121,7 +121,7 @@ app.post('/v1/codepost', async (req, res) => {
       }
         }
 
-      if(changenick === true && !UserDiscord.permissions.has(Permissions.FLAGS.ADMINISTRATOR)){
+      if(changenick === 'true' && !UserDiscord.permissions.has(Permissions.FLAGS.ADMINISTRATOR)){
         try {
         await UserDiscord.setNickname(String(rblxName))
         } catch {
