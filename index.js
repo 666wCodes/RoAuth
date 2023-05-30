@@ -62,7 +62,7 @@ app.get(`/v1/codeget`, async (req, res) => {
 app.post('/v1/codepost', async (req, res) => {
   let postcode = req.headers.code
   let postauth = req.headers.auth
-  let rblxName = req.headers.names
+  let rblxName = req.headers.name
   let rblxId = req.headers.id
 
   //if(!postcode || !postauth || !rbslxName || !rblxId || postcode === null || postauth === null || rblxName === null || rblxId === null){
@@ -106,6 +106,12 @@ app.post('/v1/codepost', async (req, res) => {
         return res.json({ error: "Invalid code", errcode: "0" })
         }
 
+        let accrobloxAlrV = db.get(`rblx-verified-${rblxId}`)
+        if(accrobloxAlrV !== null){
+          await res.status(400);
+        return res.json({ error: "This Roblox Account is already linked!!!", errcode: "1" })
+        }
+
         if(roleid !== null && !UserDiscord.permissions.has(Permissions.FLAGS.ADMINISTRATOR)){
       const role = await GuildDiscord.roles.fetch(roleid)
       if(role){
@@ -143,10 +149,11 @@ app.post('/v1/codepost', async (req, res) => {
       await db.delete(`verif-codes-${postcode}`)
       await db.set(`verified-${postdataguild}-${postdatauser}`, `true-${postdataguild}`)
       await db.set(`profile-${postdataguild}-${postdatauser}`, `${rblxName}-${rblxId}`)
+      await db.set(`rblx-verified-${rblxId}`, `true`)
 
 
       let strText = ".";
-      if(UserDiscord.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) strText = "\nbecause you are a server admin, you have not been granted roles or had your nickname changed."
+      if(UserDiscord.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) strText = ", because you are a server admin, you have not been granted roles or had your nickname changed."
       try{
       await UserDisc.send(`You are now linked as **${rblxName}** in **${GuildDiscord.name}**${strText}`)
       } catch {
@@ -174,8 +181,11 @@ client.on('interactionCreate', async (interaction) => {
     let i = interaction
     if(i.customId === 're'){
       //if(i.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.editReply({ content: `${warn} ${bullet} You are an admin, you do not need to link your account here.`, ephemeral: true })
-      await db.delete(`profile-${i.guild.id}-${i.user.id}`)
+      
+      let ReVerID = String(await db.get(`profile-${i.guild.id}-${i.user.id}`)).split("-")[1]
       await db.delete(`verified-${i.guild.id}-${i.user.id}`)
+      await db.delete(`rblx-verified-${ReVerID}`)
+      await db.delete(`profile-${i.guild.id}-${i.user.id}`)
       await interaction.update({ content: `${success} ${bullet} Unlinked, please click the link button again.`, components: [], ephemeral: true })
     }
     if(i.customId === "link"){
@@ -188,8 +198,8 @@ client.on('interactionCreate', async (interaction) => {
       let verifiedAlr = db.get(`verified-${i.guild.id}-${i.user.id}`)
 
       if(verifiedAlr !== null){
-        const reVer = new MessageActionRow().addComponents(new MessageButton().setCustomId('re').setLabel('Re-link Roblox Account').setStyle('SECONDARY'))
-        return interaction.reply({ content: `${warn} ${bullet} Your account is already linked in this server, BUT you can un-link and link again using the button below.`, components: [reVer], ephemeral: true })
+        const reVer = new MessageActionRow().addComponents(new MessageButton().setCustomId('re').setLabel('unlink Roblox Account').setStyle('SECONDARY'))
+        return interaction.reply({ content: `${warn} ${bullet} Your account is already linked in this server, BUT you can unlink and link again using the button below.`, components: [reVer], ephemeral: true })
       }
 
       if(Date.now() >= expires){
