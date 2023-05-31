@@ -11,17 +11,17 @@ module.exports = {
     .setDescription('Don\'t Worry i\'ll help you'),
     async execute(interaction, client) {
         let commandList = `
-> **/help**
-This command
+> **help**
+- This command
 
-> **/create**
-Creates a panel where users can go and link their Roblox account for roles
+> **create**
+- Creates a panel where users can go and link their Roblox account for roles
 
-> **/delete** 
-Delete a panel from the server
+> **delete** 
+- Delete a panel from the server
 
-> **/link**
-Link your Roblox account
+> **link**
+- Link your Roblox account
 
 > **/unlink**
 Unlink your Roblox account`
