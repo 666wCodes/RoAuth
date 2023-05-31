@@ -11,38 +11,20 @@ module.exports = {
     .setDescription('Don\'t Worry i\'ll help you'),
     async execute(interaction, client) {
         let commandList = `
-\`/help 
->>> This command.\`
-\`/create 
->>> Creates a panel where users can go and link their Roblox account for roles\`
-\`/delete 
->>> Delete a panel from the server\`
-\`/link 
->>> Link your Roblox account\`
-\`/settings 
->>> View your current server\'s settings\`
-\`/askonjoin 
->>> Dm new members to link their Roblox account when they join\`
-\`/autokick 
->>> Kick members after a certain time if they haven\'t linked yet\`
-\`/listmode 
->>> Change between blacklist or whitelist mode\`
-\`/blacklist 
->>> Prevents verifying if Roblox account is on blacklisted\`
-\`/blacklistadd 
->>> Add an account on the blacklist\`
-\`/blacklistremove 
->>> Remove an account on the blacklist\`
-\`/blacklistadd 
->>> Prevents verifying if Roblox account is on blacklisted\`
-\`/whitelist 
->>> Prevents verifying if Roblox account is not on whitelisted\`
-\`/whitelistadd 
->>> Add an account on the whitelist\`
-\`/whitelistremove 
->>> Remove an account on the whitelist\`
-\`/donate 
->>> Donate to keep the bot running\``
+> **/help**
+This command
+
+> **/create**
+Creates a panel where users can go and link their Roblox account for roles
+
+> **/delete** 
+Delete a panel from the server
+
+> **/link**
+Link your Roblox account
+
+> **/unlink**
+Unlink your Roblox account`
         let embed = new MessageEmbed()
         .setTitle("RoAuth Help Center")
         .addFields({ name: "List of commands", value: commandList })
