@@ -10,24 +10,19 @@ module.exports = {
     .setName('help')
     .setDescription('Don\'t Worry i\'ll help you'),
     async execute(interaction, client) {
-        let commandList = `
-> **help**
-- This command
+        let commandList = [
+          { name: "help", desc: "View command list or find information on how to setup the bot" },
+          { name: "2", desc: "Test command 2" }
+      ]
 
-> **create**
-- Creates a panel where users can go and link their Roblox account for roles
+      let commandString = "";
+      for (let i = 0; i < commandList.length; i++) {
+      commandString = commandString + `\n\n> **${commandList[i].name}**\n[${commandList[i].desc}]`
+      }
 
-> **delete** 
-- Delete a panel from the server
-
-> **link**
-- Link your Roblox account
-
-> **/unlink**
-Unlink your Roblox account`
         let embed = new MessageEmbed()
         .setTitle("RoAuth Help Center")
-        .addFields({ name: "List of commands", value: commandList })
+        .addFields({ name: "List of commands", value: commandString })
         .setColor("RANDOM")
         .setTimestamp()
         interaction.reply({ embeds: [embed] })
