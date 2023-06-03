@@ -10,10 +10,16 @@ module.exports = {
     .setName('help')
     .setDescription('Don\'t Worry i\'ll help you'),
     async execute(interaction, client) {
-        let commandList = [
-          { name: "help", desc: "View command list or find information on how to setup the bot" },
-          { name: "2", desc: "Test command 2" }
-      ]
+      let commandList = [];
+      const commandFiles = fs.readdirSync('../commands').filter(file => file.endsWith('.js'));
+
+    // Dynamically register slash commands
+    for (const file of commandFiles) {
+     const command = require(`../commands/${file}`);
+      commandList.push({ name: command.data.name, desc: command.data.desc})
+      }
+
+        
 
       let commandString = "";
       for (let i = 0; i < commandList.length; i++) {
