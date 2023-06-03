@@ -16,7 +16,7 @@ module.exports = {
     // Dynamically register slash commands
     for (const file of commandFiles) {
      const command = require(`../commands/${file}`);
-      commandList.push({ name: command.data.name, desc: command.data.description})
+      commandList.push({ name: String(command.data.name).charAt(0).toUpperCase() + String(command.data.name).slice(1), desc: command.data.description})
       }
 
         
