@@ -11,11 +11,11 @@ module.exports = {
     .setDescription('Don\'t Worry i\'ll help you'),
     async execute(interaction, client) {
       let commandList = [];
-      const commandFiles = fs.readdirSync('../commands').filter(file => file.endsWith('.js'));
+      const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
     // Dynamically register slash commands
     for (const file of commandFiles) {
-     const command = require(`../commands/${file}`);
+     const command = require(`./commands/${file}`);
       commandList.push({ name: command.data.name, desc: command.data.desc})
       }
 
