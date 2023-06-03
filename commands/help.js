@@ -20,11 +20,14 @@ module.exports = {
       }
 
         
+      commandList.sort((a, b) => a.name.localeCompare(b.name));
 
       let commandString = "";
       for (let i = 0; i < commandList.length; i++) {
       commandString = commandString + `\n\n> **${commandList[i].name}**\n[${commandList[i].desc}]`
       }
+
+      
 
         let embed = new MessageEmbed()
         .setTitle("RoAuth Help Center")
