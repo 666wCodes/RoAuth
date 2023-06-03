@@ -24,14 +24,14 @@ module.exports = {
 
       let commandString = "";
       for (let i = 0; i < commandList.length; i++) {
-      commandString = commandString + `\n\n> **${commandList[i].name}**\n[${commandList[i].desc}]`
+      commandString = commandString + `\n\n>      **${commandList[i].name}**\n${commandList[i].desc}`
       }
 
       
 
         let embed = new MessageEmbed()
         .setTitle("RoAuth Help Center")
-        .addFields({ name: "List of commands", value: commandString })
+        .addFields({ name: "      List of commands", value: commandString })
         .setColor("RANDOM")
         .setTimestamp()
         interaction.reply({ embeds: [embed] })
