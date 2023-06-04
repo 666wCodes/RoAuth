@@ -8,7 +8,7 @@ require('dotenv').config()
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('help')
-    .setDescription('Don\'t Worry i\'ll help you'),
+    .setDescription('List of commands & help on how to setup!'),
     async execute(interaction, client) {
       let commandList = [];
       const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
