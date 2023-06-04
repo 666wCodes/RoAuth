@@ -26,7 +26,7 @@ module.exports = {
 
       let commandString = "";
       for (let i = 0; i < commandList.length; i++) {
-      commandString = commandString + `<:WatchuDoinMyGuy:1114864975874367519>\n**${bullet} [${commandList[i].name}](https://printer.discord.com)**\n<:arrow:1114860819881144390> ${commandList[i].desc}`
+      commandString = commandString + `**${bullet} [${commandList[i].name}](https://printer.discord.com)**\n<:arrow:1114860819881144390> ${commandList[i].desc}\n<:WatchuDoinMyGuy:1114864975874367519>`
       }
 
         //const line = `<a:line:1114860744765354065>`
