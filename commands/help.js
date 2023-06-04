@@ -16,7 +16,9 @@ module.exports = {
     // Dynamically register slash commands
     for (const file of commandFiles) {
      const command = require(`../commands/${file}`);
-      commandList.push({ name: String(command.data.name).charAt(0).toUpperCase() + String(command.data.name).slice(1), desc: command.data.description})
+     console.log(command.data)
+      commandList.push({ name: command.data.name, desc: command.data.description})
+      //String(command.data.name).charAt(0).toUpperCase() + String(command.data.name).slice(1)
       }
 
         
@@ -24,14 +26,14 @@ module.exports = {
 
       let commandString = "";
       for (let i = 0; i < commandList.length; i++) {
-      commandString = commandString + `\n\n>      **${commandList[i].name}**\n${commandList[i].desc}`
+      commandString = commandString + `\n\n**${commandList[i].name}**\n${commandList[i].desc}`
       }
 
       
 
         let embed = new MessageEmbed()
         .setTitle("RoAuth Help Center")
-        .addFields({ name: "      List of commands", value: commandString })
+        .addFields({ name: "List of commands", value: commandString })
         .setColor("RANDOM")
         .setTimestamp()
         interaction.reply({ embeds: [embed] })
