@@ -32,8 +32,8 @@ module.exports = {
         //const line = `<a:line:1114860744765354065>`
         //const linelist = `${line}${line}${line}${line}${line}${line}${line}${line}${line}${line}`
         let embed = new MessageEmbed()
-        .setTitle("RoAuth Help Center")
-        .setDescription(linelist)
+        .setTitle("Help Center")
+        //.setDescription(linelist)
         .addFields({ name: "List of commands", value: commandString })
         .setColor("RANDOM")
         .setImage("https://tenor.com/view/rainbow-line-line-colorful-gif-15187472")
