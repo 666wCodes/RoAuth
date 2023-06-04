@@ -24,14 +24,15 @@ function getRobloxProfilePicture(robloxId) {
           resolve(imageUrl);
         } else {
           console.log(`No profile picture found for Roblox ID: ${robloxId}`);
-          resolve(null);
+          resolve("https://media.tenor.com/PI2OHuBpWHAAAAAd/discord-loadingspin.gif");
         }
       });
     });
 
     request.on('error', error => {
       console.error('Error retrieving profile picture:', error.message);
-      reject(error);
+      resolve("https://media.tenor.com/PI2OHuBpWHAAAAAd/discord-loadingspin.gif")
+      //reject(error);
     });
 
     request.end();
