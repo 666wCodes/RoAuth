@@ -26,7 +26,7 @@ module.exports = {
 
       let commandString = "";
       for (let i = 0; i < commandList.length; i++) {
-      commandString = commandString + `\n**/${commandList[i].name}**\n<:arrow:1114860819881144390> ${commandList[i].desc}`
+      commandString = commandString + `\n**${bullet} [${commandList[i].name}](https://printer.discord.com)**\n<:arrow:1114860819881144390> ${commandList[i].desc}`
       }
 
         //const line = `<a:line:1114860744765354065>`
@@ -34,9 +34,9 @@ module.exports = {
         let embed = new MessageEmbed()
         .setTitle("Help Center")
         //.setDescription(linelist)
-        .addFields({ name: "<:info:1114861006502498376> List of commands", value: commandString })
+        .addFields({ name: `<:info:1114861006502498376> ${bullet} List of commands`, value: commandString })
         .setColor("RANDOM")
-        .setImage("https://tenor.com/view/rainbow-line-line-colorful-gif-15187472")
+        .setImage("https://media.tenor.com/ZNi18lLfqs4AAAAC/rainbow-line-line.gif")
         .setTimestamp()
         interaction.reply({ embeds: [embed] })
     }
