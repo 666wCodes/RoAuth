@@ -34,7 +34,7 @@ module.exports = {
         let embed = new MessageEmbed()
         .setTitle("Help Center")
         //.setDescription(linelist)
-        .addFields({ name: "List of commands", value: commandString })
+        .addFields({ name: "<:info:1114861006502498376> List of commands", value: commandString })
         .setColor("RANDOM")
         .setImage("https://tenor.com/view/rainbow-line-line-colorful-gif-15187472")
         .setTimestamp()
