@@ -31,6 +31,7 @@ module.exports = {
 
         //const line = `<a:line:1114860744765354065>`
         //const linelist = `${line}${line}${line}${line}${line}${line}${line}${line}${line}${line}`
+        const link = new MessageActionRow().addComponents(new MessageButton().setURL("https://discord.com/").setLabel('Join Support Server').setStyle('LINK'))
         let guide = `
 1 ${bullet} Create a panel with \`/create\` with your desired options
 2 ${bullet} Enable or set settings with \`/settings\`
@@ -40,10 +41,10 @@ module.exports = {
         //.setDescription(linelist)
         .addFields({ name: `<:info:1114861006502498376> ${bullet} List of commands`, value: `${commandString}` })
         .addFields({ name: `${success} ${bullet} Setup guide`, value: guide})
-        .addFields({ name: `Important things to note`, value: `We will **never** ask for your account passwords! Only visit urls that start with \`roauth.xyz\` we will never redirect you anywhere else! The real Roauth bot will always have <:verif:1114867801312731146> next to its name!`})
+        .addFields({ name: `🗒️ ${bullet} Important things to note`, value: `We will **never** ask for your account passwords! Only visit urls that start with \`roauth.xyz\` we will never redirect you anywhere else! The real Roauth bot will always have <:verif:1114867801312731146> next to its name!`})
         .setColor("RANDOM")
         .setImage("https://media.tenor.com/ZNi18lLfqs4AAAAC/rainbow-line-line.gif")
         .setTimestamp()
-        interaction.reply({ embeds: [embed] })
+        interaction.reply({ embeds: [embed], components: [link] })
     }
 }
