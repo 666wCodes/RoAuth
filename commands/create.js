@@ -8,7 +8,7 @@ require('dotenv').config()
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('create')
-    .setDescription('Creates a link panel where users can get roles or nickname change')
+    .setDescription('Users can link their Roblox account here!')
     .addBooleanOption(option => option.setName('change_nickname').setDescription('Whether user\'s nicknames will be set as their Roblox username').setRequired(true))
     .addRoleOption(option => option.setName('role').setDescription('Role that will be given after linking').setRequired(false))
     .addChannelOption(option => option.setName('channel').setDescription('Where the message will be sent').setRequired(false)), 

@@ -71,7 +71,7 @@ If you need help or have an issue, seek help in our Support Server.`)
 }
 
 // Session
-let vcode = createCode(8)
+let vcode = createCode(12)
 let times = Math.floor(Date.now() / 1000)
 times = times + 600
 
