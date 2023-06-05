@@ -16,7 +16,7 @@ module.exports = {
       let ChangeNickRow = new MessageActionRow()
       ChangeNickRow.addComponents(new MessageButton().setCustomId('placeholder').setLabel('Change Nickname').setStyle('SECONDARY').setDisabled(true))
       ChangeNickRow.addComponents(new MessageButton().setCustomId('Scn0').setEmoji(error).setStyle('DANGER').setDisabled(false))
-      ChangeNickRow.addComponents(new MessageButton().setCustomId('Scn1').setEmoji(error).setStyle('SUCCESS').setDisabled(false))
+      ChangeNickRow.addComponents(new MessageButton().setCustomId('Scn1').setEmoji(success).setStyle('SUCCESS').setDisabled(false))
 
       interaction.reply({ content: `Test`, components: [ChangeNickRow]})
     }
