@@ -55,7 +55,7 @@ module.exports = {
       if(changeNick || changeNick !== null) cText = `${success}`
 
 
-    await interaction.reply({ content: `${success} ${bullet} Created Panel in <#${channel.id}> with id: ${msg.id}\n\n**Panel settings:** Verified role: ${rText}, Change nickname: ${cText}`, ephemeral: true})
+    await interaction.reply({ content: `${success} ${bullet} Created Panel in <#${channel.id}> with id: ${msg.id}\n**Panel settings:** Verified role: ${rText}, Change nickname: ${cText}`, ephemeral: true})
 
     
   }
