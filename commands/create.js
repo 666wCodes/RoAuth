@@ -48,9 +48,14 @@ module.exports = {
       await db.set(`paneldata-nick-${interaction.guild.id}`, `${changeNick}`)
 
     
-    
+    let rText = "none set"
+      if(role || role !== null) rText = `<@&${role.id}>`
 
-    await interaction.reply({ content: `${success} ${bullet} Created Panel in <#${channel.id}> with id: ${msg.id}`, ephemeral: true})
+    let cText = `${error}`
+      if(changeNick || changeNick !== null) cText = `${success}`
+
+
+    await interaction.reply({ content: `${success} ${bullet} Created Panel in <#${channel.id}> with id: ${msg.id}\n\n**Panel settings:** Verified role: ${rText}, Change nickname: ${cText}`, ephemeral: true})
 
     
   }
