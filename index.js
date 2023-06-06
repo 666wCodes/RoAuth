@@ -188,6 +188,9 @@ const fs = require('fs');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 client.on('interactionCreate', async (interaction) => {
+  if (!interaction.isSelectMenu()){
+    
+}
   if (interaction.isButton()){
     let i = interaction
     if(i.customId === 're'){

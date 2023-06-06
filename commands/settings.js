@@ -17,7 +17,15 @@ module.exports = {
       //ChangeNickRow.addComponents(new MessageButton().setCustomId('placeholder').setLabel('Change Nickname').setStyle('SECONDARY').setDisabled(true))
       //ChangeNickRow.addComponents(new MessageButton().setCustomId('Scn0').setEmoji(error).setStyle('DANGER').setDisabled(false))
       //ChangeNickRow.addComponents(new MessageButton().setCustomId('Scn1').setEmoji(success).setStyle('SUCCESS').setDisabled(false))
-      
+		
+	  let embed = new MessageEmbed()
+	  .setTitle(`Hello ${interaction.user.username}!`)
+	  .addFields({ name: `${interaction.guild.name}\'s Settings`, value: `Pick an option using the select menu below`})
+	  .setColor("ORANGE")
+	  .setTimestamp()
+	  .setImage(`https://media.tenor.com/ZNi18lLfqs4AAAAC/rainbow-line-line.gif`)
+	  .setFooter(`RoAuth`)
+
       ChangeNickRow.addComponents(
 				new MessageSelectMenu()
 					.setCustomId('settings')
