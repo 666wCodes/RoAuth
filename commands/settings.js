@@ -1,5 +1,5 @@
 const db = require('quick.db');
-const { discord, MessageActionRow, MessageButton, Modal, TextInputComponent, MessageEmbed, Permissions } = require('discord.js')
+const { discord, MessageActionRow, MessageButton, Modal, TextInputComponent, MessageEmbed, Permissions, MessageSelectMenu } = require('discord.js')
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { error, warn, success, info, bullet, restricted } = require('../symbols.json')
 const fs = require('fs');
@@ -14,9 +14,32 @@ module.exports = {
       if(!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.reply({ content: `${restricted} ${bullet} You do not have permission to run this command`, ephemeral: true})
 
       let ChangeNickRow = new MessageActionRow()
-      ChangeNickRow.addComponents(new MessageButton().setCustomId('placeholder').setLabel('Change Nickname').setStyle('SECONDARY').setDisabled(true))
-      ChangeNickRow.addComponents(new MessageButton().setCustomId('Scn0').setEmoji(error).setStyle('DANGER').setDisabled(false))
-      ChangeNickRow.addComponents(new MessageButton().setCustomId('Scn1').setEmoji(success).setStyle('SUCCESS').setDisabled(false))
+      //ChangeNickRow.addComponents(new MessageButton().setCustomId('placeholder').setLabel('Change Nickname').setStyle('SECONDARY').setDisabled(true))
+      //ChangeNickRow.addComponents(new MessageButton().setCustomId('Scn0').setEmoji(error).setStyle('DANGER').setDisabled(false))
+      //ChangeNickRow.addComponents(new MessageButton().setCustomId('Scn1').setEmoji(success).setStyle('SUCCESS').setDisabled(false))
+      
+      ChangeNickRow.addComponents(
+				new MessageSelectMenu()
+					.setCustomId('settings')
+					.setPlaceholder('Select an Option')
+					.addOptions([
+						{
+							label: 'Nickname Settings',
+							description: 'Whether user\'s nicknames will be set as their Roblox username',
+							value: 'S1',
+						},
+						{
+							label: 'Role Settings',
+							description: 'Role that will be given after linking',
+							value: 'S2',
+						},
+						{
+							label: 'Whitelist/Blacklist Settings',
+							description: 'Allow or unallow a Roblox username to be linked',
+							value: 'S3',
+						},
+					]),
+			);
 
       interaction.reply({ content: `Test`, components: [ChangeNickRow]})
     }
