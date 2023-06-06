@@ -49,6 +49,6 @@ module.exports = {
 					]),
 			);
 
-      interaction.reply({ content: `Test`, components: [ChangeNickRow]})
+      interaction.reply({ embeds: [embed], components: [ChangeNickRow]})
     }
 }
