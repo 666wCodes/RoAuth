@@ -21,10 +21,10 @@ module.exports = {
 	  let embed = new MessageEmbed()
 	  .setTitle(`Hello ${interaction.user.username}!`)
 	  .addFields({ name: `${interaction.guild.name}\'s Settings`, value: `Pick an option using the select menu below`})
-	  .setColor("ORANGE")
-	  .setTimestamp()
+	  .setColor("#302c34")
+	  //.setTimestamp()
 	  .setImage(`https://media.tenor.com/ZNi18lLfqs4AAAAC/rainbow-line-line.gif`)
-	  .setFooter(`RoAuth`)
+	  //.setFooter(`RoAuth`)
 
       ChangeNickRow.addComponents(
 				new MessageSelectMenu()
