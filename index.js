@@ -199,7 +199,7 @@ client.on('interactionCreate', async (interaction) => {
   if (interaction.isButton()){
     
     if(i.customId === 're'){
-      //if(i.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.editReply({ content: `${warn} ${bullet} You are an admin, you do not need to link your account here.`, ephemeral: true })
+      //if(i.member.permissions.has(Permiessions.FLAGS.ADMINISTRATOR)) return interaction.editReply({ content: `${warn} ${bullet} You are an admin, you do not need to link your account here.`, ephemeral: true })
       
       let ReVerID = String(await db.get(`profile-${i.guild.id}-${i.user.id}`)).split("-")[1]
       await db.delete(`verified-${i.guild.id}-${i.user.id}`)
