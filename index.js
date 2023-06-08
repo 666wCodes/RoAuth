@@ -191,7 +191,8 @@ client.on('interactionCreate', async (interaction) => {
   console.log("Slash command triggered")
   let i = interaction
   if (!interaction.isSelectMenu()){
-    if(String(interaction.customId).startsWith('menu')){
+    console.log(interaction.customId)
+    if(interaction.customId.startsWith('menu')){
       console.log("tets")
       let authorID = interaction.customId.split("-")[1]
       console.log(interaction.values)
