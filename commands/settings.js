@@ -28,7 +28,7 @@ module.exports = {
 
       ChangeNickRow.addComponents(
 				new MessageSelectMenu()
-					.setCustomId('menu-' + interaction.user.id)
+					.setCustomId(`menu-${interaction.user.id}`)
 					.setPlaceholder('Select an Option')
 					.addOptions([
 						{
