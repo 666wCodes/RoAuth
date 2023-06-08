@@ -188,11 +188,15 @@ const fs = require('fs');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 client.on('interactionCreate', async (interaction) => {
+  let i = interaction
   if (!interaction.isSelectMenu()){
-    
+    if(i.customId.startsWith('menu')){
+      let authorID = interaction.customId.split("-")[1]
+      console.log(interaction.values)
+    }
 }
   if (interaction.isButton()){
-    let i = interaction
+    
     if(i.customId === 're'){
       //if(i.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.editReply({ content: `${warn} ${bullet} You are an admin, you do not need to link your account here.`, ephemeral: true })
       
