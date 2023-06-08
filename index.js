@@ -188,10 +188,11 @@ const fs = require('fs');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 client.on('interactionCreate', async (interaction) => {
+  console.log("Slash command triggered")
   let i = interaction
   if (!interaction.isSelectMenu()){
-    if(String(interaction.component.CustomId).startsWith('menu')){
-      let authorID = interaction.component.CustomId.split("-")[1]
+    if(String(interaction.component.customId).startsWith('menu')){
+      let authorID = interaction.component.customId.split("-")[1]
       console.log(interaction.values)
     }
 }
