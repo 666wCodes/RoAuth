@@ -192,6 +192,7 @@ client.on('interactionCreate', async (interaction) => {
   let i = interaction
   if (!interaction.isSelectMenu()){
     if(String(interaction.customId).startsWith('menu')){
+      console.log("tets")
       let authorID = interaction.customId.split("-")[1]
       console.log(interaction.values)
     }
