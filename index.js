@@ -190,7 +190,7 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 client.on('interactionCreate', async (interaction) => {
   let i = interaction
   if (!interaction.isSelectMenu()){
-    if(string(interaction.customId).startsWith('menu')){
+    if(String(interaction.customId).startsWith('menu')){
       let authorID = interaction.customId.split("-")[1]
       console.log(interaction.values)
     }
