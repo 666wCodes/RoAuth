@@ -1,5 +1,5 @@
 const db = require('quick.db');
-const { discord, MessageActionRow, MessageButton, Modal, TextInputComponent, MessageEmbed, Permissions, MessageSelectMenu } = require('discord.js')
+const { discord, MessageActionRow, SelectMenuCollector, MessageButton, Modal, TextInputComponent, MessageEmbed, Permissions, MessageSelectMenu } = require('discord.js')
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { error, warn, success, info, bullet, restricted } = require('../symbols.json')
 const fs = require('fs');
