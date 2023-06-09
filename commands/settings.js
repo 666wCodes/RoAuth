@@ -23,7 +23,7 @@ module.exports = {
 	  .addFields({ name: `${interaction.guild.name}\'s Settings`, value: `Pick an option using the select menu below`})
 	  .setColor("#302c34")
 	  //.setTimestamp()
-	  //.setImage(`https://media.tenor.com/ZNi18lLfqs4AAAAC/rainbow-line-line.gif`)
+	  .setImage(`https://media.tenor.com/ZNi18lLfqs4AAAAC/rainbow-line-line.gif`)
 	  //.setFooter(`RoAuth`)
 
       ChangeNickRow.addComponents(
@@ -49,6 +49,26 @@ module.exports = {
 					]),
 			);
 
-      interaction.reply({ embeds: [embed], components: [ChangeNickRow]})
+	const reply = await interaction.reply({ embeds: [embed], components: [ChangeNickRow]})
+
+    const filter = (interactio) => interactio.customId === 'menu' && interactio.user.id === interaction.author.id;
+
+    const collector = new SelectMenuCollector(client, { filter, time: 10000 });
+
+    collector.on('collect', (i) => {
+		if (i.user.id !== message.author.id) {
+			i.reply({ content: `${restricted} ${bullet} Hey, you can\'t use this!`, ephemeral: true });
+			return;
+		  }
+
+		  interaction.reply(`You selected: ${interaction.values}`)
+    });
+
+    collector.on('end', (collected) => {
+      //console.log(`Collected ${collected.size} interactions.`);
+      interaction.editReply({ content: 'Selection time has ended.', components: [] });
+    });
+
+      
     }
 }
