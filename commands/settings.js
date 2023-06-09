@@ -56,7 +56,7 @@ module.exports = {
 			
 			let S1 = new MessageEmbed()
 			.setTitle(`Nickname Settings`)
-	  		.addFields({ name: `${interaction.guild.name}\'s Settings`, value: `Change nickname on link: ${CNTEXT}\nChanges the user\'s nickname to their Roblox username once they have linked their account`})
+	  		.addFields({ name: `${interaction.guild.name}\'s Settings`, value: `**Change user nickname:** ${CNTEXT}\n(Changes the user\'s nickname to their Roblox username once they have linked their account)`})
 	  		.setColor("#302c34")
 	  		.setImage(`https://media.tenor.com/ZNi18lLfqs4AAAAC/rainbow-line-line.gif`)
 
