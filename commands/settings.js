@@ -49,26 +49,28 @@ module.exports = {
 					]),
 			);
 
-	const reply = await interaction.reply({ embeds: [embed], components: [ChangeNickRow]})
+	 const reply = await interaction.reply({ embeds: [embed], components: [ChangeNickRow]})
 
-    const filter = (selectInteraction) => selectInteraction.customId === 'menu' && selectInteraction.user.id === interaction.user.id;
+      const filter = (selectInteraction) => selectInteraction.customId === 'menu' && selectInteraction.user.id === interaction.user.id;
 
-    const collector = new SelectMenuCollector(client, { filter, time: 15000 });
+      const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
 
-    collector.on('collect', (selectInteraction) => {
-      if (selectInteraction.user.id !== interaction.user.id) {
-        selectInteraction.reply('Hey, you can\'t use this button!');
-        return;
-      }
+      collector.on('collect', async (selectInteraction) => {
+        if (selectInteraction.user.id !== interaction.user.id) {
+          await selectInteraction.reply('Hey, you can\'t use this button!');
+          return;
+        }
 
-      console.log('Selected values:', selectInteraction.values);
-      selectInteraction.reply('You selected: ' + selectInteraction.values.join(', '));
-    });
+        const selectedValues = selectInteraction.values;
+        console.log('Selected values:', selectedValues);
 
-    collector.on('end', (collected) => {
-      console.log(`Collected ${collected.size} interactions.`);
-      reply.edit({ content: 'Selection time has ended.', components: [] });
-    });
+        await selectInteraction.reply('You selected: ' + selectedValues.join(', '));
+      });
+
+      collector.on('end', (collected) => {
+        console.log(`Collected ${collected.size} interactions.`);
+        reply.edit({ content: 'Selection time has ended.', components: [] });
+      });
 
       
     }
