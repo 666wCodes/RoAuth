@@ -28,7 +28,7 @@ module.exports = {
 
       ChangeNickRow.addComponents(
 				new MessageSelectMenu()
-					.setCustomId(`menu-${interaction.user.id}`)
+					.setCustomId(`menu`)
 					.setPlaceholder('Select an Option')
 					.addOptions([
 						{
@@ -51,22 +51,23 @@ module.exports = {
 
 	const reply = await interaction.reply({ embeds: [embed], components: [ChangeNickRow]})
 
-    const filter = (interactio) => interactio.customId === 'menu' && interactio.user.id === interaction.author.id;
+    const filter = (selectInteraction) => selectInteraction.customId === 'menu' && selectInteraction.user.id === interaction.user.id;
 
-    const collector = new SelectMenuCollector(client, { filter, time: 10000 });
+    const collector = new SelectMenuCollector(client, { filter, time: 15000 });
 
-    collector.on('collect', (i) => {
-		if (i.user.id !== message.author.id) {
-			i.reply({ content: `${restricted} ${bullet} Hey, you can\'t use this!`, ephemeral: true });
-			return;
-		  }
+    collector.on('collect', (selectInteraction) => {
+      if (selectInteraction.user.id !== interaction.user.id) {
+        selectInteraction.reply('Hey, you can\'t use this button!');
+        return;
+      }
 
-		  interaction.reply(`You selected: ${interaction.values}`)
+      console.log('Selected values:', selectInteraction.values);
+      selectInteraction.reply('You selected: ' + selectInteraction.values.join(', '));
     });
 
     collector.on('end', (collected) => {
-      //console.log(`Collected ${collected.size} interactions.`);
-      interaction.editReply({ content: 'Selection time has ended.', components: [] });
+      console.log(`Collected ${collected.size} interactions.`);
+      reply.edit({ content: 'Selection time has ended.', components: [] });
     });
 
       
