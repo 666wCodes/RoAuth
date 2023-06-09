@@ -48,6 +48,17 @@ module.exports = {
 						},
 					]),
 			);
+			
+			let cN = await db.get(`paneldata-nick-${interaction.guild.id}`)
+			let CNTEXT = "";
+			if(cN === null || !cN) CNTEXT = `${error}`
+			if(cN !== null || cN) CNTEXT = `${success}`
+			
+			let S1 = new MessageEmbed()
+			.setTitle(`Nickname Settings`)
+	  		.addFields({ name: `${interaction.guild.name}\'s Settings`, value: `Change nickname on link: ${CNTEXT}\nChanges the user\'s nickname to their Roblox username once they have linked their account`})
+	  		.setColor("#302c34")
+	  		.setImage(`https://media.tenor.com/ZNi18lLfqs4AAAAC/rainbow-line-line.gif`)
 
 	 const reply = await interaction.reply({ embeds: [embed], components: [ChangeNickRow]})
 
@@ -57,20 +68,18 @@ module.exports = {
 
       collector.on('collect', async (selectInteraction) => {
         if (selectInteraction.user.id !== interaction.user.id) {
-          await selectInteraction.reply('Hey, you can\'t use this button!');
+          await selectInteraction.reply({ content: 'Hey, you can\'t use this', ephemeral: true });
           return;
         }
 
         const selectedValues = selectInteraction.values;
-        console.log('Selected values:', selectedValues);
-
-        await selectInteraction.reply('You selected: ' + selectedValues.join(', '));
-		collector.stop();
+		if(selectedValues === `S1`) interaction.editReply({ embeds: [S1]})
+		//collector.stop();
       });
 
       collector.on('end', (collected) => {
         console.log(`Collected ${collected.size} interactions.`);
-        interaction.editReply({ content: '**This menu has ended, Grab another one with \`/settings\`**'});
+        interaction.editReply({ content: '**This menu has expired. Grab another one with \`/settings\`**', components: []});
       });
 
       
