@@ -65,11 +65,12 @@ module.exports = {
         console.log('Selected values:', selectedValues);
 
         await selectInteraction.reply('You selected: ' + selectedValues.join(', '));
+		collector.stop();
       });
 
       collector.on('end', (collected) => {
         console.log(`Collected ${collected.size} interactions.`);
-        reply.edit({ content: 'Selection time has ended.', components: [] });
+        interaction.editReply({ content: '**This menu has ended, Grab another one with \`/settings\`**'});
       });
 
       
