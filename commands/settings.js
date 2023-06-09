@@ -73,7 +73,7 @@ module.exports = {
         }
 
         const selectedValues = selectInteraction.values;
-		if(selectedValues === `S1`) interaction.editReply({ embeds: [S1]})
+		if(selectedValues[0] === `S1`) interaction.editReply({ embeds: [S1]})
 		//collector.stop();
       });
 
