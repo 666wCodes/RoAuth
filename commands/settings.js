@@ -49,6 +49,8 @@ module.exports = {
 					]),
 			);
 			
+			//S1
+
 			let cN = await db.get(`paneldata-nick-${interaction.guild.id}`)
 			let CNTEXT = "";
 			if(cN === null || !cN) CNTEXT = `${error}`
@@ -59,6 +61,8 @@ module.exports = {
 	  		.addFields({ name: `${interaction.guild.name}\'s Settings`, value: `**Change user nickname:** ${CNTEXT}\n(Changes the user\'s nickname to their Roblox username once they have linked their account)`})
 	  		.setColor("#302c34")
 	  		.setImage(`https://media.tenor.com/ZNi18lLfqs4AAAAC/rainbow-line-line.gif`)
+
+			  let S1BTN = new MessageActionRow().addComponents(new MessageButton().setCustomId(`CV-S1-${interaction.user.id}`).setPlaceholder(""))
 
 	 const reply = await interaction.reply({ embeds: [embed], components: [ChangeNickRow]})
 
