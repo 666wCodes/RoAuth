@@ -18,14 +18,27 @@ module.exports = {
       let panelnick = db.get(`paneldata-nick-${interaction.guild.id}`)
 	  console.log(panelc)
 
-	  if(panelc === null) panelc = `${error} Not setup yet, use \`/create\` to setup now.`
-	  if(panelc !== null) panelc = `${success} Already setup in this server.`
+	  if(panelc === null){
+		panelc = `${error} Not setup yet, use \`/create\` to setup now.`
+	  } else {
+		panelc = `${success} Already setup in this server.`
+	  } 
+	  
 
-	  if(panelrole === null) panelrole = `${error} Not setup yet`
-	  if(panelrole !== null) panelrole = `${success} Set as <@${panelrole}>`
+	  if(panelrole === null){
+		panelrole = `${error} Not setup yet`
+	  } else {
+		panelrole = `${success} Set as <@${panelrole}>`
+	  }
+	  
 
-	  if(panelnick === null) panelnick = `${error} Disabled`
-	  if(panelnick !== null) panelnick = `${success} Set to Roblox username`
+	  if(panelnick === null){
+		panelnick = `${error} Disabled`
+	  } else {
+		panelnick = `${success} Set to Roblox username`
+	  }
+	  
+	  
 
 	  let embed = new MessageEmbed()
 	  .setTitle(`${interaction.guild.name}\'s Settings`)
