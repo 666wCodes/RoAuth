@@ -16,7 +16,7 @@ module.exports = {
       let panelc = await db.get(`panel-${interaction.guild.id}`)
       let panelrole = await db.get(`paneldata-role-${interaction.guild.id}`)
       let panelnick = await db.get(`paneldata-nick-${interaction.guild.id}`)
-	  console.log(panelc + panelrole + panelnick)
+	  console.log(panelc)
 
 	  if(panelc === null) panelc = `${error} Not setup yet, use \`/create\` to setup now.`
 	  if(panelc !== null) panelc = `${success} Already setup in this server.`
@@ -25,13 +25,13 @@ module.exports = {
 	  if(panelrole !== null) panelrole = `${success} Set as <@${panelrole}>`
 
 	  if(panelnick === null) panelnick = `${error} Disabled`
-	  if(panelnick !== null) panelnick = `${success} Enabled, set to Roblox username`
+	  if(panelnick !== null) panelnick = `${success} Set to Roblox username`
 
 	  let embed = new MessageEmbed()
 	  .setTitle(`${interaction.guild.name}\'s Settings`)
 	  .addFields({ name: `Panel`, value: `${panelc}`})
 	  .addFields({ name: `Link role`, value: panelrole})
-	  .addFields({ name: `User Nickname`, value: panelnick})
+	  .addFields({ name: `Nickname settings`, value: panelnick})
 	  .setColor("#302c34")
 	  //.setTimestamp()
 	  .setFooter(`Use \"/change [name]\" to change your settings`)
