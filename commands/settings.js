@@ -13,9 +13,9 @@ module.exports = {
       if(!interaction.guild) return interaction.reply({ content: `${warn} ${bullet} This command can only be run in guilds`, ephemeral: true})
       if(!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.reply({ content: `${restricted} ${bullet} You do not have permission to run this command`, ephemeral: true})
 
-      let panelc = await db.get(`panel-${interaction.guild.id}`)
-      let panelrole = await db.get(`paneldata-role-${interaction.guild.id}`)
-      let panelnick = await db.get(`paneldata-nick-${interaction.guild.id}`)
+      let panelc = db.get(`panel-${interaction.guild.id}`)
+      let panelrole = db.get(`paneldata-role-${interaction.guild.id}`)
+      let panelnick = db.get(`paneldata-nick-${interaction.guild.id}`)
 	  console.log(panelc)
 
 	  if(panelc === null) panelc = `${error} Not setup yet, use \`/create\` to setup now.`
