@@ -37,7 +37,7 @@ module.exports = {
 	  .setImage(`https://media.tenor.com/ZNi18lLfqs4AAAAC/rainbow-line-line.gif`)
 	  
 
-			
+	interaction.reply({ embeds: [embed] })
 
       
     }
