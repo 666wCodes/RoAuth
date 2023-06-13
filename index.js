@@ -120,7 +120,7 @@ app.post('/v1/codepost', async (req, res) => {
         let accrobloxAlrV = db.get(`rblx-verified-${rblxId}`)
         if(accrobloxAlrV !== null){
           await res.status(400);
-        return res.json({ error: "This Roblox Account is already linked!!!", errcode: "1" })
+        return res.json({ msg: "This Roblox Account is already linked!", errcode: "1" })
         }
 
         if(roleid !== null && !UserDiscord.permissions.has(Permissions.FLAGS.ADMINISTRATOR)){
@@ -130,11 +130,11 @@ app.post('/v1/codepost', async (req, res) => {
         await UserDiscord.roles.add(role)
         } catch {
         await res.status(400);
-        return res.json({ error: "Unable to assign role: no perms", errcode: "2"})
+        return res.json({ msg: "Unable to assign role: no perms", errcode: "2"})
         }
       } else {
         await res.status(400);
-        return res.json({ error: "Unable to assign role: no role?", errcode: "3"})
+        return res.json({ msg: "Unable to assign role: no role?", errcode: "3"})
       }
         }
 
@@ -143,13 +143,13 @@ app.post('/v1/codepost', async (req, res) => {
         await UserDiscord.setNickname(String(rblxName))
         } catch {
           await res.status(400);
-        return res.json({ error: "Unable to change nick: no perms", errcode: "4"})
+        return res.json({ msg: "Unable to change nick: no perms", errcode: "4"})
         }
       }
 
       if(roleid === null && changenick === null){
         await res.status(400);
-        return res.json({ error: "Misconfiguration", errcode: "5"})
+        return res.json({ msg: "Misconfiguration by the server admins", errcode: "5"})
       }
 
       const EndTime = Date.now()
@@ -169,11 +169,11 @@ app.post('/v1/codepost', async (req, res) => {
       await UserDisc.send(`You are now linked as **${rblxName}** in **${GuildDiscord.name}**${strText}`)
       } catch {
         await res.status(200);
-        return res.json({ warn: "Cannot send dm to that user, make sure he has DMs enabled, it is very important", success: "true", time: `${timeTook}ms`})
+        return res.json({ msgg: "You are now linked, please enable your dms", success: "true", time: `${timeTook}ms`})
       }
 
       await res.status(200);
-      await res.json({ success: "true", time: `${timeTook}ms`})
+      await res.json({ msg: "You are now linked", time: `${timeTook}ms`})
 })
 
 app.listen(PORT, () => {

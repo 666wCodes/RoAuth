@@ -13,78 +13,31 @@ module.exports = {
       if(!interaction.guild) return interaction.reply({ content: `${warn} ${bullet} This command can only be run in guilds`, ephemeral: true})
       if(!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.reply({ content: `${restricted} ${bullet} You do not have permission to run this command`, ephemeral: true})
 
-      let ChangeNickRow = new MessageActionRow()
-      //ChangeNickRow.addComponents(new MessageButton().setCustomId('placeholder').setLabel('Change Nickname').setStyle('SECONDARY').setDisabled(true))
-      //ChangeNickRow.addComponents(new MessageButton().setCustomId('Scn0').setEmoji(error).setStyle('DANGER').setDisabled(false))
-      //ChangeNickRow.addComponents(new MessageButton().setCustomId('Scn1').setEmoji(success).setStyle('SUCCESS').setDisabled(false))
-		
+      let panelc = await db.get(`panel-${interaction.guild.id}`)
+      let panelrole = await db.get(`paneldata-role-${interaction.guild.id}`)
+      let panelnick = await db.get(`paneldata-nick-${interaction.guild.id}`)
+
+	  if(panelc === null) panelc = `${error} Not setup yet, use \`/create\` to setup now.`
+	  if(panelc !== null) panelc = `${success} Already setup in this server.`
+
+	  if(panelrole === null) panelrole = `${error} Not setup yet`
+	  if(panelrole !== null) panelrole = `${success} Set as <@${panelrole}>`
+
+	  if(panelnick === null) panelnick = `${error} Disabled`
+	  if(panelnick !== null) panelnick = `${success} Enabled, set to Roblox username`
+
 	  let embed = new MessageEmbed()
-	  .setTitle(`Hello ${interaction.user.username}!`)
-	  .addFields({ name: `${interaction.guild.name}\'s Settings`, value: `Pick an option using the select menu below`})
+	  .setTitle(`${interaction.guild.name}\'s Settings`)
+	  .addFields({ name: `Panel`, value: `${panelc}`})
+	  .addFields({ name: `Link role`, panelrole})
+	  .addFields({ name: `User Nickname`})
 	  .setColor("#302c34")
 	  //.setTimestamp()
+	  .setFooter(`Use \"/change [name]\" to change your settings`)
 	  .setImage(`https://media.tenor.com/ZNi18lLfqs4AAAAC/rainbow-line-line.gif`)
-	  //.setFooter(`RoAuth`)
+	  
 
-      ChangeNickRow.addComponents(
-				new MessageSelectMenu()
-					.setCustomId(`menu`)
-					.setPlaceholder('Select an Option')
-					.addOptions([
-						{
-							label: 'Nickname Settings',
-							description: 'Whether user\'s nicknames will be set as their Roblox username',
-							value: 'S1',
-						},
-						{
-							label: 'Role Settings',
-							description: 'Role that will be given after linking',
-							value: 'S2',
-						},
-						{
-							label: 'Whitelist/Blacklist Settings',
-							description: 'Allow or unallow a Roblox username to be linked',
-							value: 'S3',
-						},
-					]),
-			);
 			
-			//S1
-
-			let cN = await db.get(`paneldata-nick-${interaction.guild.id}`)
-			let CNTEXT = "";
-			if(cN === null || !cN) CNTEXT = `${error}`
-			if(cN !== null || cN) CNTEXT = `${success}`
-			
-			let S1 = new MessageEmbed()
-			.setTitle(`Nickname Settings`)
-	  		.addFields({ name: `${interaction.guild.name}\'s Settings`, value: `**Change user nickname:** ${CNTEXT}\n(Changes the user\'s nickname to their Roblox username once they have linked their account)`})
-	  		.setColor("#302c34")
-	  		.setImage(`https://media.tenor.com/ZNi18lLfqs4AAAAC/rainbow-line-line.gif`)
-
-			  let S1BTN = new MessageActionRow().addComponents(new MessageButton().setCustomId(`CV-S1-${interaction.user.id}`).setPlaceholder(""))
-
-	 const reply = await interaction.reply({ embeds: [embed], components: [ChangeNickRow]})
-
-      const filter = (selectInteraction) => selectInteraction.customId === 'menu' && selectInteraction.user.id === interaction.user.id;
-
-      const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
-
-      collector.on('collect', async (selectInteraction) => {
-        if (selectInteraction.user.id !== interaction.user.id) {
-          await selectInteraction.reply({ content: 'Hey, you can\'t use this', ephemeral: true });
-          return;
-        }
-
-        const selectedValues = selectInteraction.values;
-		if(selectedValues[0] === `S1`) selectInteraction.update({ embeds: [S1]})
-		//collector.stop();
-      });
-
-      collector.on('end', (collected) => {
-        console.log(`Collected ${collected.size} interactions.`);
-        interaction.editReply({ content: '**This menu has expired. Grab another one with \`/settings\`**', components: []});
-      });
 
       
     }
