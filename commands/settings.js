@@ -16,6 +16,7 @@ module.exports = {
       let panelc = await db.get(`panel-${interaction.guild.id}`)
       let panelrole = await db.get(`paneldata-role-${interaction.guild.id}`)
       let panelnick = await db.get(`paneldata-nick-${interaction.guild.id}`)
+	  console.log(panelc + panelrole + panelnick)
 
 	  if(panelc === null) panelc = `${error} Not setup yet, use \`/create\` to setup now.`
 	  if(panelc !== null) panelc = `${success} Already setup in this server.`
