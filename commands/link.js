@@ -23,7 +23,7 @@ module.exports = {
     .setDescription('Link your Roblox account!'),
     async execute(interaction, client) {
         const i = interaction
-        if(!interaction.guild) return interaction.reply({ content: `${warn} ${bullet} This command can only be run in guilds`, ephemeral: true})
+        if(!interaction.guild) return interaction.reply({ content: `${warn} ${bullet} This command can only be ran in a server., ephemeral: true})
 //eif(i.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.editReply({ content: `${warn} ${bullet} You are an admin, you do not need to link your account here.`, ephemeral: true })
 const link = new MessageActionRow().addComponents(new MessageButton().setURL("https://www.roblox.com/games/13596282742/RoAuth-Verification-Place").setLabel('Join Roblox Game').setStyle('LINK')).addComponents(new MessageButton().setURL("https://discord.com/").setLabel('Support Server').setStyle('LINK'))
 let session = db.get(`session-${i.guild.id}-${i.user.id}`)
@@ -58,13 +58,14 @@ if(session !== null && sessioncode !== null){
 .setDescription(`
 Here are the steps to link your Roblox Account
 
-1 ${bullet} Join the Roblox game using the button below
-2 ${bullet} Once in the game, enter in your authentication code
-3 ${bullet} Verify that everything is entered correctly and submit
-4 ${bullet} Your Roblox account is now linked
+${bullet} Join the Roblox game using the button below
+${bullet} Once in the game, enter your authentication code
+${bullet} Verify that everything is entered correctly and submit
+${bullet} Your Roblox account is now linked
 
 If you need help or have an issue, seek help in our Support Server.`)
 .setTimestamp();
+.setFooter('SUPPORT SERVER URL')
 
   
   return interaction.reply({ content: `${warn} ${bullet} You already have a session.`, embeds: [embed2], components: [link], ephemeral: true })
@@ -88,13 +89,14 @@ let embed1 = new MessageEmbed()
 .setDescription(`
 Here are the steps to link your Roblox Account
 
-1 ${bullet} Join the Roblox game using the button below
-2 ${bullet} Once in the game, enter in your authentication code
-3 ${bullet} Verify that everything is entered correctly and submit
-4 ${bullet} Your Roblox account is now linked
+${bullet} Join the Roblox game using the button below
+${bullet} Once in the game, enter your authentication code
+${bullet} Verify that everything is entered correctly and submit
+${bullet} Your Roblox account is now linked
 
 If you need help or have a problem, join our Support Server.`)
 .setTimestamp();
+.setFooter('SUPPORT SERVER URL')
     await i.reply({ embeds: [embed1], components: [link], ephemeral: true });
     }
 }
