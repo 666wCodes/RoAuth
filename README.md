@@ -13,4 +13,4 @@ Things I'm doing:
 - Verify by Roblox Profile About ME
 
 ## Interested?
-]Join my discord server for sneak-peaks](https://666w-dev.xyz)
+[Join my discord server for sneak-peaks](https://666w-dev.xyz)
